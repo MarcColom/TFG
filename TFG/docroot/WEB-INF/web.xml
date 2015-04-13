@@ -40,11 +40,22 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
     	<param-value>true</param-value>
 	</context-param>
 	
-	<!-- Configuració Serveis Rest ******* MODIFICAR *******-->
+	<!-- Configuració Serveis Rest -->
 	<context-param>
 		<param-name>resteasy.jndi.resources</param-name>
-		<param-value>java:app/SegurosyViajes.jar/UserFacadeBean!ejb.UserFacadeRemote</param-value>	
+		<param-value>java:app/SegurosyViajes.jar/AdministratorFacadeBean!ejb.AdministratorFacadeRemote</param-value>	
 	</context-param>
+	
+	<context-param>
+		<param-name>resteasy.jndi.resources</param-name>
+		<param-value>java:app/SegurosyViajes.jar/UserInsuranceFacadeBean!ejb.UserInsuranceFacadeRemote</param-value>	
+	</context-param>
+	
+	<context-param>
+		<param-name>resteasy.jndi.resources</param-name>
+		<param-value>java:app/SegurosyViajes.jar/UserOrderFacadeBean!ejb.UserOrderFacadeRemote</param-value>	
+	</context-param>
+	
 	
 	<listener>
 		<listener-class>
