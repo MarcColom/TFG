@@ -4,6 +4,8 @@
 
 package ejb;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -13,6 +15,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import jpa.InsuranceJPA;
+import jpa.OrderJPA;
 
 
 @Stateless
@@ -23,14 +26,15 @@ public class UserInsuranceFacadeBean implements UserInsuranceFacadeRemote {
 	private EntityManager entman;
 	
 	@Override
-	public List<InsuranceJPA> findInsurances(Date initDate, Date endDate, String origin, String destination) {		
+	public List<InsuranceJPA> findInsurances(OrderJPA newOrder) throws ParseException {		
 		// ***** TO DO **** //
-		
-		System.out.println("Aquest es el Origen rebut: " + origin);
-		System.out.println("Aquest es el Desti rebut: " + destination);
-		System.out.println("Aquesta es la Data de Inici rebuda: " + initDate.toString());
-		System.out.println("Aquesta es la Data de Fi rebuda: " + endDate.toString());
-		
+				
+		System.out.println("Aquest es el Origen rebut: " + newOrder.getOrigin());
+		System.out.println("Aquest es el Desti rebut: " + newOrder.getDestination());		  	 		
+		System.out.println("Aquesta es la Data de Inici rebuda: " + newOrder.getInitDate().toString());
+		System.out.println("Aquesta es la Data de Fi rebuda: " + newOrder.getEndDate().toString());
+		System.out.println("Els dies de viatge són: " + (((newOrder.getEndDate().getTime() - newOrder.getInitDate().getTime())/86400000) + 1));
+						
 		List<InsuranceJPA> insurances = new ArrayList<InsuranceJPA>();
 		return insurances;
 	}

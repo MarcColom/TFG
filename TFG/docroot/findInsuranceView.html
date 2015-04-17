@@ -58,13 +58,13 @@
 			Nuevo Destino: {{formCtrl.user.destination}}
 		</div>
 		<div class="panel-body">
-			Nueva Fecha Inicio: {{formCtrl.user.initDate}}
+			Nueva Fecha Inicio: {{formCtrl.user.initDate | date:'dd/MM/yyyy'}}
 		</div>
 		<div class="panel-body">
-			Nueva Fecha Fin: {{formCtrl.user.endDate}}
+			Nueva Fecha Fin: {{formCtrl.user.endDate | date:'dd/MM/yyyy'}}
 		</div>
 		<div class="panel-body">
-			Fecha de Hoy: {{formCtrl.today}}
+			Fecha de Hoy: {{formCtrl.today | date:'dd/MM/yyyy'}}
 		</div>
 	</div>
 	</div>  	
