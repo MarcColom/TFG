@@ -25,6 +25,12 @@ public class UserInsuranceFacadeBean implements UserInsuranceFacadeRemote {
 	@Override
 	public List<InsuranceJPA> findInsurances(Date initDate, Date endDate, String origin, String destination) {		
 		// ***** TO DO **** //
+		
+		System.out.println("Aquest es el Origen rebut: " + origin);
+		System.out.println("Aquest es el Desti rebut: " + destination);
+		System.out.println("Aquesta es la Data de Inici rebuda: " + initDate.toString());
+		System.out.println("Aquesta es la Data de Fi rebuda: " + endDate.toString());
+		
 		List<InsuranceJPA> insurances = new ArrayList<InsuranceJPA>();
 		return insurances;
 	}
