@@ -27,7 +27,7 @@ public interface UserInsuranceFacadeRemote {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces("application/json")
 	@Path("/findInsurances")	
-	public List<InsuranceJPA> findInsurances(OrderJPA newOrder) throws ParseException;	
+	public List<OrderJPA> findInsurances(OrderJPA newOrder) throws ParseException;	
 	
 	@GET	
 	@Produces("application/json")

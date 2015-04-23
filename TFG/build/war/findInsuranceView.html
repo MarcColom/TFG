@@ -20,18 +20,18 @@
 	  		<div class="form-group">
 	   			<label>Residencia del asegurado:</label>
 	   			<select class="form-control" ng-model="formCtrl.user.origin" type="Text" placeholder="Introduce la residencia" required>
-	   				<option>España y Andorra</option>
-  					<option>Europa y Ribera del Mediterraneo</option>
-  					<option>Resto del Mundo</option>
+	   				<option>España</option>
+  					<option>Europa</option>
+  					<option>Mundo</option>
   				</select>
 			</div>			
 		  				
 	  		<div class="form-group">
 	   			<label>Destino del viaje:</label>
 	   			<select ng-model="formCtrl.user.destination" type="Text" class="form-control" placeholder="Introduce el destino" required>
-	   				<option>España y Andorra</option>
-  					<option>Europa y Ribera del Mediterraneo</option>
-  					<option>Resto del Mundo</option>
+	   				<option>España</option>
+  					<option>Europa</option>
+  					<option>Mundo</option>
   				</select>
 			</div>
 			
@@ -58,13 +58,13 @@
 			Nuevo Destino: {{formCtrl.user.destination}}
 		</div>
 		<div class="panel-body">
-			Nueva Fecha Inicio: {{formCtrl.user.initDate}}
+			Nueva Fecha Inicio: {{formCtrl.user.initDate | date:'dd/MM/yyyy'}}
 		</div>
 		<div class="panel-body">
-			Nueva Fecha Fin: {{formCtrl.user.endDate}}
+			Nueva Fecha Fin: {{formCtrl.user.endDate | date:'dd/MM/yyyy'}}
 		</div>
 		<div class="panel-body">
-			Fecha de Hoy: {{formCtrl.today}}
+			Fecha de Hoy: {{formCtrl.today | date:'dd/MM/yyyy'}}
 		</div>
 	</div>
 	</div>  	

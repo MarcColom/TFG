@@ -30,7 +30,7 @@
   	
   	<fileset dir="${source}/docroot/WEB-INF/lib">  
   	  	    <include name="**/*.jar" />  
-  	</fileset> 
+  	</fileset> 	  	
   	
   </path>
   
@@ -56,7 +56,7 @@
    	<copy file="${sourcesrc}/META-INF/persistence.xml" todir="${buildjar}/META-INF"/>
    	<copy file="${sourcesrc}/log4j.properties" todir="${buildjar}"/>
    <javac srcdir="${sourcesrc}" destdir="${buildjar}"
-       	includes="/ejb/*.java, /jpa/*.java"
+       	includes="/ejb/*.java, /jpa/*.java, /wsTaeds/*.java, /wsTaedsBook/*.java, /wsTaedsBookResponse/*.java, /wsTaedsLogin/*.java, /wsTaedsLoginResponse/*.java"
         classpathref="jboss.classpath"   
     	includeantruntime="true"
     />
@@ -86,7 +86,7 @@
   <target name="deployClient" depends="compileWar">
     <jar jarfile="${dist}/SegurosyViajes.war"
       basedir="${buildwar}"
-      excludes="/WEB-INF/classes/ejb/*.*, /WEB-INF/classes/jpa/*.*"
+      excludes="/WEB-INF/classes/ejb/*.*, /WEB-INF/classes/jpa/*.*, /WEB-INF/classes/wsTaeds/*.*, /WEB-INF/classes/wsTaedsBook/*.*, /WEB-INF/classes/wsTaedsBookResponse/*.*, /WEB-INF/classes/wsTaedsLogin/*.*, /WEB-INF/classes/wsTaedsLoginResponse/*.*"
       update="yes">
     </jar>
   </target>

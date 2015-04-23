@@ -16,7 +16,7 @@ import javax.persistence.PersistenceContext;
 
 import jpa.InsuranceJPA;
 import jpa.OrderJPA;
-
+import ejb.InsuranceReservationFacade;
 
 @Stateless
 public class UserInsuranceFacadeBean implements UserInsuranceFacadeRemote {
@@ -26,7 +26,7 @@ public class UserInsuranceFacadeBean implements UserInsuranceFacadeRemote {
 	private EntityManager entman;
 	
 	@Override
-	public List<InsuranceJPA> findInsurances(OrderJPA newOrder) throws ParseException {		
+	public List<OrderJPA> findInsurances(OrderJPA newOrder) throws ParseException {		
 		// ***** TO DO **** //
 				
 		System.out.println("Aquest es el Origen rebut: " + newOrder.getOrigin());
@@ -34,8 +34,12 @@ public class UserInsuranceFacadeBean implements UserInsuranceFacadeRemote {
 		System.out.println("Aquesta es la Data de Inici rebuda: " + newOrder.getInitDate().toString());
 		System.out.println("Aquesta es la Data de Fi rebuda: " + newOrder.getEndDate().toString());
 		System.out.println("Els dies de viatge són: " + (((newOrder.getEndDate().getTime() - newOrder.getInitDate().getTime())/86400000) + 1));
-						
-		List<InsuranceJPA> insurances = new ArrayList<InsuranceJPA>();
+		
+		// Crida al metode InsuranceReservationFacade que administra els WS //
+		InsuranceReservationFacadeBean wsReservation = new InsuranceReservationFacadeBean();						
+		List<OrderJPA> insurances = new ArrayList<OrderJPA>();
+		insurances = wsReservation.findAllInsurances(newOrder);	
+		
 		return insurances;
 	}
 	
