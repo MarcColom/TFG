@@ -1,0 +1,73 @@
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	id="WebApp_ID" version="2.5">
+
+	<context-param>
+		<description>
+			Define the value returned by Application.getProjectStage(). Allowed values: Production, Development, 
+			UnitTest, SystemTest, Extension. Default value is Production.
+		</description>
+		<param-name>javax.faces.PROJECT_STAGE</param-name>
+		<param-value>Development</param-value>
+	</context-param>
+
+	<!-- Definir este parámetro es más cómodo y más visual que usar el <ui:remove> de Facelets. -->
+	<context-param>
+		<description>Do not render comments in facelets (xhtml) pages. Default is false.</description>
+		<param-name>javax.faces.FACELETS_SKIP_COMMENTS</param-name>
+		<param-value>true</param-value>
+	</context-param>
+
+	<servlet>
+		<servlet-name>Faces Servlet</servlet-name>
+		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>Faces Servlet</servlet-name>
+		<url-pattern>*.xhtml</url-pattern>
+	</servlet-mapping>
+    
+    <!-- The Welcome File List -->
+    <welcome-file-list>
+    	<welcome-file>index.html</welcome-file>
+    </welcome-file-list>
+    
+    <context-param>
+    	<param-name>javax.faces.DATETIMECONVERTER_DEFAULT_TIMEZONE_IS_SYSTEM_TIMEZONE</param-name>
+    	<param-value>true</param-value>
+	</context-param>
+	
+	<!-- Configuració Serveis Rest -->	
+	<context-param>
+		<param-name>resteasy.jndi.resources</param-name>		
+		<param-value>java:app/SegurosyViajes.jar/UserInsuranceFacadeBean!ejb.UserInsuranceFacadeRemote</param-value>		
+	    <param-value>java:app/SegurosyViajes.jar/UserOrderFacadeBean!ejb.UserOrderFacadeRemote</param-value>		
+		<param-value>java:app/SegurosyViajes.jar/AdministratorFacadeBean!ejb.AdministratorFacadeRemote</param-value>    
+	</context-param>	
+	
+	<listener>
+		<listener-class>
+		org.jboss.resteasy.plugins.server.servlet.ResteasyBootstrap
+		</listener-class>
+	</listener>
+	
+    <servlet>
+		<servlet-name>Resteasy</servlet-name>
+		<servlet-class>
+			org.jboss.resteasy.plugins.server.servlet.HttpServletDispatcher
+		</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>Resteasy</servlet-name>
+		<url-pattern>/WSUserInsuranceRest/*</url-pattern>
+	    <url-pattern>/WSUserOrderRest/*</url-pattern>
+		<url-pattern>/WSAdministratorRest/*</url-pattern>   
+	</servlet-mapping>	
+	<!-- END Configuració Serveis Rest -->	
+	
+	
+</web-app>

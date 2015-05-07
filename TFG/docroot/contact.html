@@ -1,0 +1,94 @@
+<!doctype html>
+
+<html lang="es" ng-app="contact">
+  
+  <head>
+   <meta charset="utf-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1">   
+   <title>Seguros y Viajes.com Contacto</title>   
+   <link href="bootstrap-3.3.4/css/bootstrap.min.css" rel="stylesheet">
+         
+  </head>
+  
+  <body>
+  
+  	<div ng-include="'header.html'"></div> 
+  
+  
+  <div class="container" ng-controller="contactCtrl as ct">  
+  	  	
+  <div class="row top-buffer">
+  
+  <div class="col-md-2"> </div>
+  
+  <div class="col-md-8">
+  
+   <div class="well well-lg>     
+  
+  <form class="form-horizontal" name="contactForm" ng-submit="contactForm.$valid && ct.sendContact()" novalidate>
+  <fieldset> 
+    <legend><h3>Envia tu consulta</h3></legend>
+	  			  		 			  		
+  		<div class="form-group">
+   			<label>Nombre:</label>
+   			<input ng-model="ct.contact.nombre" type="Text" class="form-control" placeholder="Introduce tu nombre y tus apellidos" required/>
+		</div>
+  				
+  		<div class="form-group">
+   			<label>Email:</label>
+   			<input ng-model="ct.contact.email" type="email" class="form-control" placeholder="Introduce tu email" required/>
+		</div>
+		
+		<div class="form-group">
+   			<label>Motivo de la consulta:</label>
+   			<input ng-model="ct.contact.asunto" type="Text" class="form-control" placeholder="Introduce el motivo de tu consulta" required/>
+		</div>
+		
+		<div class="form-group">
+   			<label>Consulta:</label>   			
+   			<textarea ng-model="ct.contact.texto" name="texto" rows="8" cols="50" class="form-control" placeholder="Escribe aquí tu consulta" required> </textarea>   			
+		</div>
+		
+		<input type="submit" value="Enviar" class="btn btn-info"/>				  				  				
+  </fieldset>
+  </form>  
+  		  		
+  </br>
+  		  		
+  <div class="panel panel-info">
+		<div class="panel-heading">
+				<h3 class="panel-title">Nuevo Nombre: {{ct.contact.nombre}}</h3>  				
+		</div>
+		
+		<div class="panel-body">
+				Nuevo Email: {{ct.contact.email}}
+		</div>
+		
+		<div class="panel-body">
+				Nuevo Asunto: {{ct.contact.asunto}}
+		</div>  	
+		
+		<div class="panel-body">
+				Nueva Consulta: {{ct.contact.texto}}
+		</div>  							  				
+   </div>			 
+	  	
+  <div class="col-md-2"> </div>
+  
+  </div>
+  </div>
+  </div>
+  </div>
+  
+  	<div ng-include="'footer.html'"></div>  
+	  	
+
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  <script src="bootstrap-3.3.4/js/bootstrap.min.js"></script>  
+  <script type="text/javascript" src="./AngularJS/angular.min.js"></script>
+  <script type="text/javascript" src="./AngularJS/contact.js"></script>     
+  
+  </body>
+</html>

@@ -1,0 +1,13 @@
+<application>
+  <display-name>SegurosyViajes</display-name>
+  <module>
+    <web>
+      <web-uri>SegurosyViajes.war</web-uri>
+      <context-root>/SegurosyViajes</context-root>
+    </web>
+  </module>
+  <module>
+    <ejb>SegurosyViajes.jar</ejb>
+  </module>
+</application>
+
