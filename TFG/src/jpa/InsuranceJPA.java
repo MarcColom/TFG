@@ -5,6 +5,8 @@
 package jpa;
 
 import java.io.Serializable;
+import java.util.Date;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -21,10 +23,20 @@ public class InsuranceJPA implements Serializable {
 	private Integer code;
 	private String name;
 	private String policyNumber;
+	private String image;
+	private String logoCia;
 	private String coverage;
 	private String generalConditions;
-	private CompanyJPA company;
-		
+	private CompanyJPA company;	
+	private float grossPrice;
+	private float netPrice;	
+	private Date initDate;
+	private Date endDate;
+	private String origin;
+	private String destination;
+	private Integer duracion;
+	
+
 	public InsuranceJPA(){
 		this.id=getId();
 	}
@@ -100,4 +112,78 @@ public class InsuranceJPA implements Serializable {
 	public void setCompany(CompanyJPA company) {
 		this.company = company;
 	}
+
+	public float getGrossPrice() {
+		return grossPrice;
+	}
+
+	public void setGrossPrice(float grossPrice) {
+		this.grossPrice = grossPrice;
+	}
+
+	public float getNetPrice() {
+		return netPrice;
+	}
+
+	public void setNetPrice(float netPrice) {
+		this.netPrice = netPrice;
+	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
+	public String getLogoCia() {
+		return logoCia;
+	}
+
+	public void setLogoCia(String logoCia) {
+		this.logoCia = logoCia;
+	}
+
+	public Date getInitDate() {
+		return initDate;
+	}
+
+	public void setInitDate(Date initDate) {
+		this.initDate = initDate;
+	}
+
+	public Date getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
+
+	public String getOrigin() {
+		return origin;
+	}
+
+	public void setOrigin(String origin) {
+		this.origin = origin;
+	}
+
+	public String getDestination() {
+		return destination;
+	}
+
+	public void setDestination(String destination) {
+		this.destination = destination;
+	}
+	
+	public Integer getDuracion() {
+		return duracion;
+	}
+
+	public void setDuracion(Integer duracion) {
+		this.duracion = duracion;
+	}
+	
+	
 }

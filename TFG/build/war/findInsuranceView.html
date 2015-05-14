@@ -65,8 +65,74 @@
 		</div>
 		<div class="panel-body">
 			Fecha de Hoy: {{formCtrl.today | date:'dd/MM/yyyy'}}
-		</div>
+		</div>	
+	</div>	
+	
+	
+	
+	<div ng-repeat="insurance in formCtrl.insurances">	  			
+			<div class="panel panel-primary">
+			<div class="panel-heading">
+				
+			<div class="media">
+  				<div class="media-left media-middle">
+    				<img src="{{insurance.image}}" alt="imagen seguro" class="img-rounded">	
+  				</div>
+  				<div class="media-body media-middle">
+    				<h1 class="panel-title">{{insurance.name}}</h1>    
+  				</div>
+  				<div class="media-right media-top">
+    				<img src="{{insurance.company.logo}}" alt="compañia" class="img-rounded">
+  				</div>
+			</div>	
+				
+				
+		<!-- 		<div class="row top-buffer">	  	
+				<div class="col-md-3"> 
+					<img src="{{insurance.image}}" alt="imagen seguro" class="img-rounded">					
+				</div>
+				<div class="col-md-6">					
+					<h3 class="panel-title">{{insurance.name}}</h3>
+				</div>
+				<div class="col-md-3">			
+					<img src="{{insurance.company.logo}}" alt="compañia" class="img-rounded">					
+				</div>
+				</div>   -->	  				
+			</div>   
+			
+	<!-- 	<div class="panel-body">    				
+    				<a href="{{insurance.coverage}}" id="example"  rel="popover" 
+    				   data-content="<div>This <b>is</b> your div content</div>" 
+    				   data-html="true" data-original-title="A Title" target="_blank">Detalle de las coberturas</a>    								
+			</div>  -->			
+			
+			
+			<div class="alert alert-dismissible alert-info">  				
+  				<a href="{{insurance.coverage}}" class="alert-link" target="_blank">Detalle de las coberturas</a>
+			</div>
+			
+			
+			
+			<div class="panel-body">
+					<h6 class="text-muted">{{insurance.generalConditions}}</h6>
+			</div>			
+			
+			<div class="panel-footer">
+			<div class="row top-buffer">	  	
+				<div class="col-md-9">	
+					<p class="text-info"> <strong> Precio: {{insurance.grossPrice}} € </strong></p>					
+				</div>				
+				<div class="col-md-3">			
+					<input type="submit" value="Comprar" class="btn btn-info"/>					
+				</div>
+			</div>
+			</div>
+			
+							  				
+			</div>
 	</div>
+	
+	
 	</div>  	
 	
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>

@@ -25,6 +25,6 @@
 		           			        	
 		        	//ct.contacts.push(ct.contact);
 		        	ct.contact = {};		        			        	
-		            }  
+		        }  
 		      
          }]);

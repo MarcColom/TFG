@@ -13,6 +13,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import taeds.TaedsFacadeBean;
+import jpa.InsuranceJPA;
 import jpa.OrderJPA;
 import jpa.PersonJPA;
 
@@ -26,12 +27,12 @@ public class InsuranceReservationFacadeBean implements InsuranceReservationFacad
 	
 
 	@Override
-	public List<OrderJPA> findAllInsurances(OrderJPA newOrder) {
+	public List<InsuranceJPA> findAllInsurances(String origin, String destination, Date initDate,Date endDate) {
 
 		// Llama a la classe que gestiona el Web Service de TAEDS				
-		List<OrderJPA> insurances = new ArrayList<OrderJPA>();
+		List<InsuranceJPA> insurances = new ArrayList<InsuranceJPA>();
 		TaedsFacadeBean inTaeds = new TaedsFacadeBean();		
-		insurances = inTaeds.TaedsLogin(newOrder);
+		insurances = inTaeds.TaedsLogin(origin, destination, initDate, endDate);
 		return insurances;
 	}
 

@@ -4,6 +4,7 @@
 
 package ejb;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.ws.rs.PathParam;
 
 import jpa.CustomerJPA;
 import jpa.InsuranceJPA;
@@ -28,14 +30,26 @@ public class UserInsuranceFacadeBean implements UserInsuranceFacadeRemote {
 	private EntityManager entman;
 	
 	@Override
-	public List<OrderJPA> findInsurances(OrderJPA newOrder) throws ParseException {		
+	public List<InsuranceJPA> findInsurances(String origin, String destination, String initDate,String endDate) throws ParseException{		
 								
-		List<OrderJPA> insurances = new ArrayList<OrderJPA>();
-		InsuranceReservationFacadeBean inR = new InsuranceReservationFacadeBean();
-		insurances = inR.findAllInsurances(newOrder);	
-		System.out.println("FindInsurances ha estat invocat!!!");
-		
+		List<InsuranceJPA> insurances = new ArrayList<InsuranceJPA>();
+		InsuranceReservationFacadeBean inR = new InsuranceReservationFacadeBean();		
+						
+		try {
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+	    Date iDate = df.parse(initDate);
+	    Date eDate = df.parse(endDate);			
+	
+		insurances = inR.findAllInsurances(origin, destination, iDate, eDate);			
+		}catch (ParseException e) {	        
+		}
 		return insurances;
+	}
+	
+	@Override
+	public void prova(){
+		String pr = "Hola Marc Funciona la Prova i la torna a AngularJS!!!!";
+				
 	}
 	
 	@Override

@@ -13,7 +13,9 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import jpa.CustomerJPA;
@@ -24,11 +26,15 @@ import jpa.OrderJPA;
 @Path("/WSUserInsuranceRest")
 public interface UserInsuranceFacadeRemote {
 
-	@POST	
-	@Consumes(MediaType.APPLICATION_JSON)
+	@GET	
 	@Produces("application/json")
 	@Path("/findInsurances")	
-	public List<OrderJPA> findInsurances(OrderJPA newOrder) throws ParseException;	
+	public List<InsuranceJPA> findInsurances(@QueryParam("origin")String origin, @QueryParam("destination")String destination, 
+											 @QueryParam("initDate")String initDate, @QueryParam("endDate")String endDate)throws ParseException;
+	
+	@GET
+	@Path("/prova")	
+	public void prova();
 	
 	@GET	
 	@Produces("application/json")

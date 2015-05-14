@@ -9,26 +9,31 @@
         		vm.today = new Date();        		
 		        
 		        vm.AddRestEJB = function(){       
-		        			        	
-		        	var params = {
-		        		initDate: vm.user.initDate,
-			        	endDate: vm.user.endDate,
-		        		origin: vm.user.origin,		        		
-		        		destination: vm.user.destination		        		
-		        	};	        	
-		        			        	
-		        	$http.post("http://localhost:8080/SegurosyViajes/WSUserInsuranceRest/findInsurances", params)
-		        		.success(function(){                
-		        			//vm.insurances = respuesta;		 
+		       
+		        	$http.get("http://localhost:8080/SegurosyViajes/WSUserInsuranceRest/prova")
+		        	.success(function(){       				 
+		        			console.log("OK DE POST");		        			
+		        		})
+		        		.error(function(){	        				 
+		        			console.log("ERROR DE POST");
+		        		});		        	
+		        	
+		        	  $http.get("http://localhost:8080/SegurosyViajes/WSUserInsuranceRest/findInsurances", {params: {origin: vm.user.origin,
+		        		  																							destination: vm.user.destination,
+		        		  																							initDate: vm.user.initDate,
+		        		  																							endDate: vm.user.endDate}
+		        	  																						})	        	
+		        		.success(function(respuesta){                
+		        			vm.insurances = respuesta;		 
 		        			console.log("OK DE POST");
 		        		})
-		        		.error(function(){                
-		        			//vm.insurances = respuesta;		 
+		        		.error(function(){	        				 
 		        			console.log("ERROR DE POST");
 		        		});
 		        	
-		        	vm.user = {};
-		        	
+		        	//vm.insurances.push(vm.order);
+		        	//vm. order = {};
+		        	vm.user = {};		        	
 		        }  
 		      
          }]);

@@ -13,6 +13,7 @@ import java.net.URLEncoder;
 import java.nio.charset.Charset;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -40,7 +41,7 @@ public class TaedsFacadeBean {
 	
 	// Constantes para LOGIN Entorno de Produccion //	
 	
-	public List<OrderJPA> TaedsLogin (OrderJPA newOrder) {
+	public List<InsuranceJPA> TaedsLogin (String origin, String destination, Date initDate,Date endDate) {
 		
 	try  {
 		
@@ -88,18 +89,18 @@ public class TaedsFacadeBean {
 	RESPUESTACONFIGURACION resp = (RESPUESTACONFIGURACION) un.unmarshal(conn.getInputStream());
 	
 	// CREA una lista con los seguros disponibles //	
-	List<OrderJPA> insurances = new ArrayList<OrderJPA>();
+	List<InsuranceJPA> insurances = new ArrayList<InsuranceJPA>();
 	List<RESPUESTACONFIGURACION.MODALIDADES.MODALIDAD> receiptInsurances = resp.getMODALIDADES().getMODALIDAD();	
 		
 	// Iteramos cada seguro //
 	for (Iterator<RESPUESTACONFIGURACION.MODALIDADES.MODALIDAD> itM = receiptInsurances.iterator(); itM.hasNext();) {        		
-		OrderJPA tempOrder = new OrderJPA();
+		InsuranceJPA tempInsurance = new InsuranceJPA();
 		RESPUESTACONFIGURACION.MODALIDADES.MODALIDAD tempModalidad = itM.next();
 			
 		if (tempModalidad.getComisionable().equals("Si")) {
-			tempOrder = setOrder(tempOrder, newOrder, tempModalidad);
-			if (tempOrder.getGrossPrice() != 0.0) {
-			insurances.add(tempOrder);
+			tempInsurance = setInsurance(tempInsurance, tempModalidad, origin, destination, initDate, endDate);
+			if (tempInsurance.getGrossPrice() != 0.0) {
+			insurances.add(tempInsurance);
 			}
 		}
 	} 	
@@ -126,38 +127,39 @@ public class TaedsFacadeBean {
 	
 	// Metodo que rellena los datos de cada seguro segun los parametros de entrada //
 	
-	public OrderJPA setOrder (OrderJPA tempOrder, OrderJPA newOrder, RESPUESTACONFIGURACION.MODALIDADES.MODALIDAD tempModalidad) {	
+	public InsuranceJPA setInsurance (InsuranceJPA tempInsurance, RESPUESTACONFIGURACION.MODALIDADES.MODALIDAD tempModalidad,
+							  		  String origin, String destination, Date initDate,Date endDate) {	
 		
 		// Variables
-		Long duracion = ((newOrder.getEndDate().getTime() - newOrder.getInitDate().getTime())/86400000) + 1;
+		Long duracion = ((endDate.getTime() - initDate.getTime())/86400000) + 1;
 		
 		// Rellena los datos de la Companyia //
 		CompanyJPA newCompany = new CompanyJPA();
 		newCompany.setLogo(tempModalidad.getIMGCOURL());
 				
-		// Rellena los datos de Insurances //
-		InsuranceJPA newInsurance = new InsuranceJPA();
-		newInsurance.setName(tempModalidad.getNombre());
-		newInsurance.setCode(new Integer(tempModalidad.getCodigo()));
-		newInsurance.setCoverage(tempModalidad.getMODURL());
-		newInsurance.setCompany(newCompany);
-		newInsurance.setGeneralConditions(tempModalidad.getLABEL());		
-		
-		// Rellena los datos de Order //
-		tempOrder.setInsurance(newInsurance);
-		tempOrder.setOrigin(newOrder.getOrigin());
-		
+		// Rellena los datos de Insurances //		
+		tempInsurance.setName(tempModalidad.getNombre());
+		tempInsurance.setCode(new Integer(tempModalidad.getCodigo()));
+		tempInsurance.setCoverage(tempModalidad.getMODURL());
+		tempInsurance.setCompany(newCompany);
+		tempInsurance.setGeneralConditions(tempModalidad.getLABEL());
+		tempInsurance.setInitDate(initDate);
+		tempInsurance.setEndDate(endDate);
+		tempInsurance.setOrigin(origin);
+		tempInsurance.setDestination(destination);
+		tempInsurance.setImage(tempModalidad.getIMGMODURL());
+		tempInsurance.getCompany().setLogo(tempModalidad.getIMGCOURL());	
+		tempInsurance.setDuracion(duracion.intValue());
+				
 		// Itera los destinos y los precios //
 		for (Iterator<RESPUESTACONFIGURACION.MODALIDADES.MODALIDAD.DESTINO> itD = tempModalidad.getDESTINO().iterator(); itD.hasNext();) {			
 			RESPUESTACONFIGURACION.MODALIDADES.MODALIDAD.DESTINO tempD = itD.next();
 
 			// Busca el destino //
-			if ((newOrder.getDestination().equals("España") & (tempD.getNombre().equals("España") || tempD.getNombre().equals("España/Andorra"))) ||
-				(newOrder.getDestination().equals("Europa") & (tempD.getNombre().equals("Europa") || tempD.getNombre().equals("Europa y Rib. del Mediterraneo"))) ||
-				(newOrder.getDestination().equals("Mundo") & (tempD.getNombre().equals("Mundo")))					
-				) {
-					tempOrder.setDestination(tempD.getNombre());				
-					
+			if ((destination.equals("España") & (tempD.getNombre().equals("España") || tempD.getNombre().equals("España/Andorra"))) ||
+				(destination.equals("Europa") & (tempD.getNombre().equals("Europa") || tempD.getNombre().equals("Europa y Rib. del Mediterraneo"))) ||
+				(destination.equals("Mundo") & (tempD.getNombre().equals("Mundo")))					
+				) {					
 					// Busca la duración //
 					Integer beforeDay = 0;
 					Integer afterDay = 0;
@@ -166,14 +168,14 @@ public class TaedsFacadeBean {
 						afterDay = tempDur.getDies().intValue();
 
 						 if ((beforeDay <= duracion) & (afterDay >= duracion)) {
-							 tempOrder.setGrossPrice(tempDur.getPrecio());
-							 tempOrder.setNetPrice(tempDur.getPrecioC());
+							 tempInsurance.setGrossPrice(tempDur.getPrecio());
+							 tempInsurance.setNetPrice(tempDur.getPrecioC());
 						 }
 						beforeDay = afterDay; 
 					}						
 			}				
 		}
-	return tempOrder;
+	return tempInsurance;
 	}
 			
 }	
