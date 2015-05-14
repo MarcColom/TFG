@@ -8,15 +8,7 @@
         		vm.users = {};        		
         		vm.today = new Date();        		
 		        
-		        vm.AddRestEJB = function(){       
-		       
-		        	$http.get("http://localhost:8080/SegurosyViajes/WSUserInsuranceRest/prova")
-		        	.success(function(){       				 
-		        			console.log("OK DE POST");		        			
-		        		})
-		        		.error(function(){	        				 
-		        			console.log("ERROR DE POST");
-		        		});		        	
+		        vm.AddRestEJB = function(){   	        	        	
 		        	
 		        	  $http.get("http://localhost:8080/SegurosyViajes/WSUserInsuranceRest/findInsurances", {params: {origin: vm.user.origin,
 		        		  																							destination: vm.user.destination,
@@ -36,7 +28,34 @@
 		        	vm.user = {};		        	
 		        }  
 		      
-         }]);
+         }])
+         
+	 	.controller('contactCtrl', ['$http', function($http){		 
+	 		
+			var ct=this;
+			ct.contact = {};			
+			       	           
+			ct.sendContact = function(){	        	    
+					        	
+	     	$http.get("http://localhost:8080/SegurosyViajes/WSUserInsuranceRest/contact", {params: {	nombre: ct.contact.nombre,
+																							        	email: ct.contact.email,
+																						        		asunto: ct.contact.asunto,		        		
+																						        		consulta: ct.contact.texto		        		
+																						        	    }	    
+	     																				  })
+	     		.success(function(answer){                
+	     			ct.contactAnswer = answer;
+	     			console.log("OK DE POST");
+	     		})
+	     		.error(function(){                
+	              console.log("ERROR DE POST");
+	     		});   			        	
+	     	
+	     	ct.contact = {};		        			        	
+	     }	      
+	}]);
+	        
+	        
 	
  
 		 	        

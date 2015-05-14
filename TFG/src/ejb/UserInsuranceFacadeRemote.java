@@ -31,11 +31,7 @@ public interface UserInsuranceFacadeRemote {
 	@Path("/findInsurances")	
 	public List<InsuranceJPA> findInsurances(@QueryParam("origin")String origin, @QueryParam("destination")String destination, 
 											 @QueryParam("initDate")String initDate, @QueryParam("endDate")String endDate)throws ParseException;
-	
-	@GET
-	@Path("/prova")	
-	public void prova();
-	
+		
 	@GET	
 	@Produces("application/json")
 	@Path("/insuranceCoverage")
@@ -45,11 +41,11 @@ public interface UserInsuranceFacadeRemote {
 	@Produces("application/json")
 	@Path("/insuranceGeneralConditions")
 	public String insuranceGeneralConditions(String insurance);
-	
-	@POST	
-	@Consumes(MediaType.APPLICATION_JSON)
+		
+	@GET	
 	@Produces("application/json")
 	@Path("/contact")	
-	public void contact(CustomerJPA customer);
-	
+	public List<String> contact(@QueryParam("nombre")String nombre, @QueryParam("email")String email, 
+						  @QueryParam("asunto")String asunto, @QueryParam("consulta")String consulta);	
+		
 }
