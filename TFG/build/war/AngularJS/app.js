@@ -1,5 +1,35 @@
  angular
-        .module('app', [])
+        .module('app', ["ngRoute"])
+        
+        .config(function($routeProvider){        	        	
+        	
+        	$routeProvider
+        	.when("/",{
+        		controller: "InsuranceRequestCtrl",
+        		controllerAs: "vm",
+        		templateUrl: "findInsuranceView.html"
+        	})
+        	.when("/showInsurancesView",{
+        		controller: "InsuranceRequestCtrl",
+        		controllerAs: "vm",
+        		templateUrl: "showInsurancesView.html"
+        	})
+        	.when("/contact",{
+        		controller: "contactCtrl",
+        		controllerAs: "ct",
+        		templateUrl: "contact.html"
+        	})
+        	.when("/faqs",{
+        		controller: "contactCtrl",
+        		controllerAs: "ct",
+        		templateUrl: "faqs.html"
+        	})
+        	
+        	
+        	.otherwise({ reditrectTo : "/" });
+        	
+        	
+        })
                 	
         .controller('InsuranceRequestCtrl', ['$http', function($http){		 
 		    
