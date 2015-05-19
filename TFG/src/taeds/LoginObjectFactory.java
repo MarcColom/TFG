@@ -26,14 +26,14 @@ import javax.xml.bind.annotation.XmlRegistry;
  * 
  */
 @XmlRegistry
-public class TaedsLoginObjectFactory {
+public class LoginObjectFactory {
 
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: loginTaeds
      * 
      */
-    public TaedsLoginObjectFactory() {
+    public LoginObjectFactory() {
     }
 
     /**

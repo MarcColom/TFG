@@ -84,7 +84,7 @@ public class TaedsFacadeBean {
     	    }
     
     // UNMARSHAL Leemos el XML de la respuesta del Login y lo almacenamos en las clases //	
-	JAXBContext context = JAXBContext.newInstance(TaedsLoginResponseObjectFactory.class);	  
+	JAXBContext context = JAXBContext.newInstance(LoginResponseObjectFactory.class);	  
 	Unmarshaller un = context.createUnmarshaller();
 	RESPUESTACONFIGURACION resp = (RESPUESTACONFIGURACION) un.unmarshal(conn.getInputStream());
 	

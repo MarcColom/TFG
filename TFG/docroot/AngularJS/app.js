@@ -68,7 +68,7 @@
         		var vm = this;        		
         		vm.today = formFactory.today;        		     		
         		  		
-        		vm.AddForm = function(){	        
+        		vm.AddForm = function(){       				
         			formFactory.form = vm.user;		        	
 		        	vm.user = {};		       	        	
 		        	$location.url("/showInsurancesView");	        	
@@ -79,7 +79,8 @@
         	
         	 var vm = this;       	 
         	 vm.insurances = {};
-        	 vm.form = formFactory.form;        	 
+        	 vm.form = formFactory.form;
+        	 vm.today = formFactory.today; 
         	 
         	 $http.get("http://localhost:8080/SegurosyViajes/WSUserInsuranceRest/findInsurances", {params: 
  				{origin: vm.form.origin,
@@ -109,7 +110,33 @@
 		
         		var vm = this;        		
         		vm.insurance = orderFactory.insurance;
-        		vm.form = orderFactory.form;	  		
+        		vm.form = orderFactory.form;        		
+        		vm.user = {};
+        		vm.user.paxsNumber = 1;
+        		vm.user.paxsName = new Array(vm.user.paxsNumber);
+        		
+        		vm.getPaxsNumber = function(number) {
+        		    return new Array(number);   
+        		}
+        		
+        		$http.get("http://localhost:8080/SegurosyViajes/WSUserOrderRest/order", {params: 
+ 				{origin: vm.insurance.code,
+        		initDate: vm.form.initDate,
+    			endDate: vm.form.endDate}
+				destination: vm.form.destination,
+				
+        		}
+        		})	        	
+        		.success(function(respuesta){				
+				vm.insurances = respuesta;								
+				console.log("OK DE POST");
+        		})
+				.error(function(){	        				 
+					console.log("ERROR DE POST");
+				});  
+        		
+        		
+        		
         	
          })
 	 		
