@@ -106,38 +106,43 @@
         	 
          })
          
-         .controller('OrderCtrl', function($location, orderFactory){		 
+         .controller('OrderCtrl', function($http, $location, orderFactory){		 
 		
         		var vm = this;        		
-        		vm.insurance = orderFactory.insurance;
         		vm.form = orderFactory.form;        		
-        		vm.user = {};
-        		vm.user.paxsNumber = 1;
-        		vm.user.paxsName = new Array(vm.user.paxsNumber);
+        		vm.insurance = orderFactory.insurance;        		
+        		vm.customer = {};
+        		vm.persons = {};
+        		vm.payment = {};
+        		vm.address = {};        		
+        		vm.personNum = 1;
         		
-        		vm.getPaxsNumber = function(number) {
-        		    return new Array(number);   
+        		vm.getPaxsNumber = function() {
+        		    return new Array(vm.personNum);   
         		}
         		
+        		vm.sendOrder = function(){	 
+        		
+        			console.log("ESTIC A SEND ORDER DEL CTRL");
+        				
         		$http.get("http://localhost:8080/SegurosyViajes/WSUserOrderRest/order", {params: 
- 				{origin: vm.insurance.code,
-        		initDate: vm.form.initDate,
-    			endDate: vm.form.endDate}
-				destination: vm.form.destination,
-				
+        		{  insuranceCode: vm.insurance.code,
+        		   destinationCode: vm.insurance.destinationCode,
+        		   duracionCode: vm.insurance.duracionCode,
+        		   initDate: vm.form.initDate,        		   
+        		   paxsNum: vm.personNum,
+        		   city: vm.customer.address.city,        		   
+        		   persons: vm.order.persons        			        			        	
         		}
-        		})	        	
+        		})      		        		
         		.success(function(respuesta){				
-				vm.insurances = respuesta;								
+				vm.orderConfirmation = respuesta;								
 				console.log("OK DE POST");
         		})
 				.error(function(){	        				 
-					console.log("ERROR DE POST");
-				});  
-        		
-        		
-        		
-        	
+				console.log("ERROR DE POST");
+				});
+        		}
          })
 	 		
          
@@ -149,7 +154,7 @@
 			       	           
 			ct.sendContact = function(){	        	    
 					        	
-	     	$http.get("http://localhost:8080/SegurosyViajes/WSUserInsuranceRest/contact", {params: {	nombre: ct.contact.nombre,
+	     	$http.get("http://localhost:8080/SegurosyViajes/WSUserOrderRest/contact", {params: {	nombre: ct.contact.nombre,
 																							        	email: ct.contact.email,
 																						        		asunto: ct.contact.asunto,		        		
 																						        		consulta: ct.contact.texto		        		

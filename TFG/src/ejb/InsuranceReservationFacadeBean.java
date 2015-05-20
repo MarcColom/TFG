@@ -12,7 +12,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import taeds.TaedsFacadeBean;
+import taeds.TaedsLoginFacadeBean;
 import jpa.InsuranceJPA;
 import jpa.OrderJPA;
 import jpa.PersonJPA;
@@ -31,7 +31,7 @@ public class InsuranceReservationFacadeBean implements InsuranceReservationFacad
 
 		// Llama a la classe que gestiona el Web Service de TAEDS				
 		List<InsuranceJPA> insurances = new ArrayList<InsuranceJPA>();
-		TaedsFacadeBean inTaeds = new TaedsFacadeBean();		
+		TaedsLoginFacadeBean inTaeds = new TaedsLoginFacadeBean();		
 		insurances = inTaeds.TaedsLogin(origin, destination, initDate, endDate);
 		return insurances;
 	}

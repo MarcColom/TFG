@@ -35,6 +35,8 @@ public class InsuranceJPA implements Serializable {
 	private String origin;
 	private String destination;
 	private Integer duracion;
+	private Integer destinationCode;
+	private Integer duracionCode;	
 	
 
 	public InsuranceJPA(){
@@ -184,6 +186,23 @@ public class InsuranceJPA implements Serializable {
 	public void setDuracion(Integer duracion) {
 		this.duracion = duracion;
 	}
+
+	public Integer getDestinationCode() {
+		return destinationCode;
+	}
+
+	public void setDestinationCode(Integer destinationCode) {
+		this.destinationCode = destinationCode;
+	}
+
+	public Integer getDuracionCode() {
+		return duracionCode;
+	}
+
+	public void setDuracionCode(Integer duracionCode) {
+		this.duracionCode = duracionCode;
+	}
+	
 	
 	
 }

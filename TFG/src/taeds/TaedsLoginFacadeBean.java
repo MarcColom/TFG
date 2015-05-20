@@ -31,7 +31,7 @@ import jpa.CompanyJPA;
 import jpa.InsuranceJPA;
 import jpa.OrderJPA;
 
-public class TaedsFacadeBean {
+public class TaedsLoginFacadeBean {
 			
 	// Constantes para LOGIN Entorno de Pruebas // 
 	private static final String LOGIN_TEST = "test";
@@ -160,6 +160,10 @@ public class TaedsFacadeBean {
 				(destination.equals("Europa") & (tempD.getNombre().equals("Europa") || tempD.getNombre().equals("Europa y Rib. del Mediterraneo"))) ||
 				(destination.equals("Mundo") & (tempD.getNombre().equals("Mundo")))					
 				) {					
+					
+					// Guarda el Codigo del Destino //
+					tempInsurance.setDestinationCode(tempD.getCodigo().intValue());
+				
 					// Busca la duración //
 					Integer beforeDay = 0;
 					Integer afterDay = 0;
@@ -168,6 +172,8 @@ public class TaedsFacadeBean {
 						afterDay = tempDur.getDies().intValue();
 
 						 if ((beforeDay <= duracion) & (afterDay >= duracion)) {
+							// Guarda el Codigo de Duración //
+							 tempInsurance.setDuracionCode(tempDur.getCodigo().intValue());
 							 tempInsurance.setGrossPrice(tempDur.getPrecio());
 							 tempInsurance.setNetPrice(tempDur.getPrecioC());
 						 }

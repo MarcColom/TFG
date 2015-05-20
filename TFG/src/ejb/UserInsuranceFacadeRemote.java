@@ -41,11 +41,12 @@ public interface UserInsuranceFacadeRemote {
 	@Produces("application/json")
 	@Path("/insuranceGeneralConditions")
 	public String insuranceGeneralConditions(String insurance);
-		
+
+	/*
 	@GET	
 	@Produces("application/json")
 	@Path("/contact")	
 	public List<String> contact(@QueryParam("nombre")String nombre, @QueryParam("email")String email, 
 						  @QueryParam("asunto")String asunto, @QueryParam("consulta")String consulta);	
-		
+	*/	
 }

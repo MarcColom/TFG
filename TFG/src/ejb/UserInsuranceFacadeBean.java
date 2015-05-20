@@ -73,7 +73,7 @@ public class UserInsuranceFacadeBean implements UserInsuranceFacadeRemote {
 		String generalConditions = null;
 		return generalConditions;
 	}	
-	
+	/*
 	@Override		
 	public List<String> contact(String nombre, String email, String asunto, String consulta) {		
 		
@@ -90,9 +90,9 @@ public class UserInsuranceFacadeBean implements UserInsuranceFacadeRemote {
 
 	    public void EnviadorMail(String nombre, String email, String asunto, String consulta) {    	  	
 	    	
-	    	 String from = "mcolomro@gmail.com";
-	         String pass = "935683813";
-	         String RECIPIENT = "mcolomro@gmail.com";
+	    	 String from = "segurosyviajes.com@gmail.com";
+	         String pass = "seguros1234";
+	         String RECIPIENT = "segurosyviajes.com@gmail.com";
 	         String[] to = { RECIPIENT }; // list of recipient email addresses
 	         String subject = "SegurosyViajes.com Consultas";
 	         String body = "Nombre: " + nombre + "\n" + "Email: " + email + "\n" + "Asunto: " + asunto + "\n" + "Consulta: " + consulta;
@@ -135,6 +135,6 @@ public class UserInsuranceFacadeBean implements UserInsuranceFacadeRemote {
 	         catch (MessagingException me) {
 	             me.printStackTrace();
 	         }
-	     }
+	     } */
 	
 }	

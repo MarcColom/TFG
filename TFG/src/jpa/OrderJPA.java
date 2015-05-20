@@ -6,6 +6,7 @@ package jpa;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -25,7 +26,7 @@ public class OrderJPA implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Integer id;
 	private Integer code;
-	private Integer localizador;
+	private Integer localizador;	
 	private Date orderDate;
 	private Date initDate;
 	private Date endDate;
@@ -34,9 +35,14 @@ public class OrderJPA implements Serializable {
 	private Integer personNum;
 	private float grossPrice;
 	private float netPrice;
+	private String certificadoURL;
+	private String certificadoEcoURL;
+	private String certificadoMiURL;
 	private InsuranceJPA insurance;
 	private CustomerJPA customer;
-	private Set<PersonJPA> persons;
+	private List<PersonJPA> persons;
+	
+	
 	
 	
 	public OrderJPA(){
@@ -156,12 +162,39 @@ public class OrderJPA implements Serializable {
 	
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "segurosyviajes.ORDER_PERSONS", joinColumns = { @JoinColumn(name = "ORDER_ID") }, inverseJoinColumns = { @JoinColumn(name = "PERSON_ID") })
-	public Set<PersonJPA> getPersons() {
+	public List<PersonJPA> getPersons() {
 		return persons;
 	}
 
-	public void setPersons(Set<PersonJPA> persons) { 
+	public void setPersons(List<PersonJPA> persons) { 
 		this.persons = persons;
 	}
+
+	public String getCertificadoURL() {
+		return certificadoURL;
+	}
+
+	public void setCertificadoURL(String certificadoURL) {
+		this.certificadoURL = certificadoURL;
+	}
+
+	public String getCertificadoEcoURL() {
+		return certificadoEcoURL;
+	}
+
+	public void setCertificadoEcoURL(String certificadoEcoURL) {
+		this.certificadoEcoURL = certificadoEcoURL;
+	}
+
+	public String getCertificadoMiURL() {
+		return certificadoMiURL;
+	}
+
+	public void setCertificadoMiURL(String certificadoMiURL) {
+		this.certificadoMiURL = certificadoMiURL;
+	}
+	
+	
+	
 	
 }

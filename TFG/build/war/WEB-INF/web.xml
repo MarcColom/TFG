@@ -41,11 +41,12 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	</context-param>
 	
 	<!-- Configuració Serveis Rest -->	
-	<context-param>
+ 	<context-param>
 		<param-name>resteasy.jndi.resources</param-name>		
-		<param-value>java:app/SegurosyViajes.jar/UserInsuranceFacadeBean!ejb.UserInsuranceFacadeRemote</param-value>		
-<!--    <param-value>java:app/SegurosyViajes.jar/UserOrderFacadeBean!ejb.UserOrderFacadeRemote</param-value>		
-		<param-value>java:app/SegurosyViajes.jar/AdministratorFacadeBean!ejb.AdministratorFacadeRemote</param-value> -->    
+		<param-value>java:app/SegurosyViajes.jar/UserInsuranceFacadeBean!ejb.UserInsuranceFacadeRemote,		
+	    			 java:app/SegurosyViajes.jar/UserOrderFacadeBean!ejb.UserOrderFacadeRemote,		
+					 java:app/SegurosyViajes.jar/AdministratorFacadeBean!ejb.AdministratorFacadeRemote
+		</param-value>     
 	</context-param>	
 	
 	<listener>
@@ -64,10 +65,38 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	<servlet-mapping>
 		<servlet-name>Resteasy</servlet-name>
 		<url-pattern>/WSUserInsuranceRest/*</url-pattern>
-<!--    <url-pattern>/WSUserOrderRest/*</url-pattern>
-		<url-pattern>/WSAdministratorRest/*</url-pattern>   -->
 	</servlet-mapping>	
 	<!-- END Configuració Serveis Rest -->	
+	
+	
+	<!-- 2ons Configuració Serveis Rest -->	
+    <servlet>
+		<servlet-name>Resteasy2</servlet-name>
+		<servlet-class>
+			org.jboss.resteasy.plugins.server.servlet.HttpServletDispatcher
+		</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>Resteasy2</servlet-name>		
+	    <url-pattern>/WSUserOrderRest/*</url-pattern>		  
+	</servlet-mapping>	
+	<!-- END 2ona Configuració Serveis Rest -->	
+
+	
+	<!-- 3era Configuració Serveis Rest -->
+	<servlet>
+		<servlet-name>Resteasy3</servlet-name>
+		<servlet-class>
+			org.jboss.resteasy.plugins.server.servlet.HttpServletDispatcher
+		</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>Resteasy3</servlet-name>		
+	    <url-pattern>/WSAdministratorRest/*</url-pattern>		  
+	</servlet-mapping>	
+	<!-- END 3era Configuració Serveis Rest -->	
 	
 	
 </web-app>
