@@ -43,44 +43,25 @@ public class UserOrderFacadeBean implements UserOrderFacadeRemote {
 	@Override
 	public OrderJPA order(Integer insuranceCode, Integer destinationCode, Integer duracionCode, String initDate, 
 						  Integer paxsNum, String city, String person) throws ParseException {
-
 		
-		System.out.println("Hola, Estic a UserOrderFacadebean 1");
 		// Dar formato a las fechas //
 		try {
 			DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 		    Date iDate = df.parse(initDate);		
-		
-		System.out.println("Hola, Estic a UserOrderFacadebean 2");
+
 		// Llenar clase InsuranceJPA //
 		InsuranceJPA ins = new InsuranceJPA();		
 		ins.setCode(insuranceCode);
 		ins.setDestinationCode(destinationCode);
 		ins.setDuracionCode(duracionCode);
-		ins.setInitDate(iDate);
-		
-		System.out.println("UserOrderFacadebean Insurance: ");
-		System.out.println("Code" + ins.getCode());
-		System.out.println("Code Byte" + ins.getCode().byteValue());
-		
-		System.out.println("Destination" + ins.getDestinationCode());
-		System.out.println("Destination Byte" + ins.getDestinationCode().byteValue());
-		
-		System.out.println("Duracion" + ins.getDuracionCode());
-		System.out.println("Duracion Byte" + (byte) ins.getDuracionCode().byteValue());   
-			//							(byte)(value >>> 24),		
-		
-		System.out.println("InitDate" + ins.getInitDate());		
+		ins.setInitDate(iDate);				
 		
 		// Generar List //
 		List<String> persons = new ArrayList<String>();
-		persons.add(person);
-		
-		System.out.println("persons" + persons.toString());	
+		persons.add(person);		
 		
 		TaedsBookFacadeBean taeds = new TaedsBookFacadeBean();		
-		OrderJPA order = taeds.TaedsBook(ins, paxsNum, city, persons);
-		System.out.println("Hola, Estic a UserOrderFacadebean 3");
+		OrderJPA order = taeds.TaedsBook(ins, paxsNum, city, persons);		
 		return order;
 		
 		}catch (ParseException e) {	
