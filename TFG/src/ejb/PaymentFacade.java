@@ -4,9 +4,11 @@
 
 package ejb;
 
+import jpa.PaymentJPA;
+
 public interface PaymentFacade {
 
-	public Boolean payment(String idShop, String cc, String cad, String cvs, float amount);
+	public Boolean payment(PaymentJPA payment);
 		
 }	
 	

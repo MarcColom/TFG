@@ -43,17 +43,19 @@ public interface UserOrderFacadeRemote {
 						  @QueryParam("asunto")String asunto, @QueryParam("consulta")String consulta);
 	
 			
-	/*
-	@POST	
-	@Consumes(MediaType.APPLICATION_JSON)
+	
+	@GET		
 	@Path("/addCustomer")	
-	public void addCustomer(String name, String email, String phone, String address, String city, String province, String postalCode, String country);  
+	public void addCustomer(@QueryParam("name")String name, @QueryParam("surnames")String surnames, @QueryParam("email")String email, 
+							@QueryParam("phone")String phone, @QueryParam("address") String address, @QueryParam("city") String city,
+							@QueryParam("province")String province, @QueryParam("postalCode") String postalCode, @QueryParam("country") String country);  
 	
 	@POST	
 	@Consumes(MediaType.APPLICATION_JSON)
-	@Path("/addPersons")	
-	public void addPersons(List<String> persons);  
-	*/		
+	@Produces("application/json")
+	@Path("/payment")	
+	public Boolean payment(PaymentJPA payment);  
+			
 	
 	@GET	
 	@Produces("application/json")

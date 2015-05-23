@@ -25,6 +25,7 @@ import javax.persistence.PersistenceContext;
 import javax.ws.rs.QueryParam;
 
 import taeds.TaedsBookFacadeBean;
+import jpa.AddressJPA;
 import jpa.CustomerJPA;
 import jpa.InsuranceJPA;
 import jpa.OrderJPA;
@@ -61,24 +62,54 @@ public class UserOrderFacadeBean implements UserOrderFacadeRemote {
 		persons.add(person);		
 		
 		TaedsBookFacadeBean taeds = new TaedsBookFacadeBean();		
-		OrderJPA order = taeds.TaedsBook(ins, paxsNum, city, persons);		
+		OrderJPA order = taeds.TaedsBook(ins, paxsNum, city, persons);
+				
+		entman.persist(order);
+		
 		return order;
 		
 		}catch (ParseException e) {	
-			return null;
+			  System.out.println("Marc Parse Error " + e);
+			 // e.printStackTrace();
+			  return null;
 		}		
 		
 	}
-	
-	
-	public void addCustomer(String name, String email, String phone, String address, String city, 
-							String province, String postalCode, String country){
-		// ***** TO DO **** //
+		
+	public void addCustomer(String name, String surnames, String email,	String phone, String address, String city,
+				String province, String postalCode, String country) {	
+			
+		PersonJPA p = new PersonJPA();
+		AddressJPA a = new AddressJPA();
+		CustomerJPA c = new CustomerJPA();
+		
+		p.setName(name);
+		p.setSurnames(surnames);
+		p.setCustomer(c);
+		
+		a.setAddress(address);
+		a.setCity(city);
+		a.setCountry(country);
+		a.setPostalCode(postalCode);
+		a.setProvince(province);
+		
+		c.setName(p);
+		c.setAddress(a);
+		c.setEmail(email);
+		c.setPhone(phone);	
+		
+		entman.persist(p);
+		entman.persist(a);
+		entman.persist(c);		
 	}
 		
-	
-	public void addPersons(List<String> persons) {
-		// ***** TO DO **** //		
+	@Override
+	public Boolean payment(PaymentJPA payment){
+		// ***** TO DO **** //
+		
+		PaymentFacade p = new PaymentFacadeBean();
+		Boolean isPay = p.payment(payment);
+		return isPay;	
 	}	
 	
 	@Override
@@ -109,10 +140,7 @@ public class UserOrderFacadeBean implements UserOrderFacadeRemote {
 		String respuesta = "Tu consulta se ha enviado correctamente. En breve nos pondermos en contacto contigo";
 		list.add(respuesta);	
 		return list;		
-	}
-	
-	
-	    
+	}    
 
 	    public void EnviadorMail(String nombre, String email, String asunto, String consulta) {    	  	
 	    	

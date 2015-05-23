@@ -8,6 +8,8 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import jpa.PaymentJPA;
+
 @Stateless
 public class PaymentFacadeBean implements PaymentFacade {
 
@@ -17,9 +19,9 @@ public class PaymentFacadeBean implements PaymentFacade {
 	
 
 	@Override
-	public Boolean payment(String idShop, String cc, String cad, String cvs, float amount) {
+	public Boolean payment(PaymentJPA payment) {
 		//***** TO DO **** //
-		Boolean isPay = false;
+		Boolean isPay = true;
 		return isPay;
 	}
 }
