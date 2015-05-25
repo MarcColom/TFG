@@ -17,6 +17,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -144,6 +145,8 @@ public class OrderJPA implements Serializable {
 		this.netPrice = netPrice;
 	}
 
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "INSURANCE_ID")
 	public InsuranceJPA getInsurance() {
 		return insurance;
 	}
@@ -152,6 +155,8 @@ public class OrderJPA implements Serializable {
 		this.insurance = insurance;
 	}
 
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "CUSTOMOER_ID")
 	public CustomerJPA getCustomer() {
 		return customer;
 	}

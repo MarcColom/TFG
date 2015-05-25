@@ -39,14 +39,14 @@ public interface UserOrderFacadeRemote {
 	@GET	
 	@Produces("application/json")
 	@Path("/contact")	
-	public List<String> contact(@QueryParam("nombre")String nombre, @QueryParam("email")String email, 
-						  @QueryParam("asunto")String asunto, @QueryParam("consulta")String consulta);
+	public void contact(@QueryParam("nombre")String nombre, @QueryParam("email")String email, 
+				   	    @QueryParam("asunto")String asunto, @QueryParam("consulta")String consulta);
 	
 			
 	
 	@GET		
 	@Path("/addCustomer")	
-	public void addCustomer(@QueryParam("name")String name, @QueryParam("surnames")String surnames, @QueryParam("email")String email, 
+	public void addCustomer(@QueryParam("orderId")Integer orderId, @QueryParam("name")String name, @QueryParam("surnames")String surnames, @QueryParam("email")String email, 
 							@QueryParam("phone")String phone, @QueryParam("address") String address, @QueryParam("city") String city,
 							@QueryParam("province")String province, @QueryParam("postalCode") String postalCode, @QueryParam("country") String country);  
 	
@@ -60,15 +60,14 @@ public interface UserOrderFacadeRemote {
 	@GET	
 	@Produces("application/json")
 	@Path("/findOrderByName")	
-	public OrderJPA findOrderByName(String name, String surname, String email);	
+	public OrderJPA findOrderByName(@QueryParam("name")String name, @QueryParam("surnames")String surnames, @QueryParam("email")String email);	
 
 	@GET	
 	@Produces("application/json")
 	@Path("/findOrderById")	
-	public OrderJPA findOrderById(String orderId, String email);	
+	public OrderJPA findOrderById(@QueryParam("orderId")Integer orderId, @QueryParam("email")String email);	
 
 	@GET	
-	@Produces("application/json")
 	@Path("/sendConfirmation")	
-	public void sendConfirmation(String orderId);
+	public void sendConfirmation(@QueryParam("orderId")Integer orderId);
 }

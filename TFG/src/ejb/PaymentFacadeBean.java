@@ -20,7 +20,7 @@ public class PaymentFacadeBean implements PaymentFacade {
 
 	@Override
 	public Boolean payment(PaymentJPA payment) {
-		//***** TO DO **** //
+		// SEND PAYMENT TO BANC TPV WEB SERVICE //
 		Boolean isPay = true;
 		return isPay;
 	}

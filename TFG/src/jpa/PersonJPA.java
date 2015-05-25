@@ -20,7 +20,6 @@ public class PersonJPA implements Serializable {
 	private Integer id;
 	private String name;
 	private String surnames;	
-	private CustomerJPA customer;
 	
 	public PersonJPA(){
 		this.id=getId();
@@ -56,12 +55,5 @@ public class PersonJPA implements Serializable {
 	public void setSurnames(String surnames) {
 		this.surnames = surnames;
 	}
-
-	public CustomerJPA getCustomer() {
-		return customer;
-	}
-
-	public void setCustomer(CustomerJPA customer) {
-		this.customer = customer;
-	}	
+	
 }

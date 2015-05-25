@@ -11,9 +11,7 @@
         	})
         	.when("/showInsurancesView",{
         		controller: "ShowInsuranceCtrl",
-        		controllerAs: "showCtrl",
-        		//controller: "UserFormCtrl",
-        		//controllerAs: "formCtrl",
+        		controllerAs: "showCtrl",        	
         		templateUrl: "showInsurancesView.html"        		
         	})
         	.when("/orderView",{
@@ -80,6 +78,11 @@
         	return data;     	        	     	
         })
         
+        .factory("showFindOrder", function(){
+        	var data = this;
+        	data.order = {};
+        	return data;        	
+        })       
                 	
         .controller('UserFormCtrl', function($location, formFactory, findInsuranceFactory){		 
 		
@@ -142,28 +145,7 @@
         		    return new Array(vm.personNum);   
         		}
         		
-        		vm.sendOrder = function(){       			
-        		        				        	
-        		// SEND CUSTOMER //	        	
-		        $http.get("http://localhost:8080/SegurosyViajes/WSUserOrderRest/addCustomer", {params:
-		        	{name: vm.customer.name,
-		        	surnames: vm.customer.surname,
-	        		email: vm.customer.email,
-	        		phone: vm.customer.phone,
-	        		address: vm.customer.address.address,
-	        		city: vm.customer.address.city,
-	        		province: vm.customer.address.province,
-	        		postalCode: vm.customer.address.postalCode,
-	        		country: vm.customer.address.country 
-		        	}
-		        	})		        	
-		        	
-		        .success(function(){ 		        	
-		        	console.log("OK DE POST");
-		        })
-		        .error(function(){                
-		           console.log("ERROR DE POST");
-		        });
+        		vm.sendOrder = function(){ 		
         		
 		        // SEND PAYMENT //        		        	
         			var params = {
@@ -177,13 +159,16 @@
     		        $http.post("http://localhost:8080/SegurosyViajes/WSUserOrderRest/payment", params)
     		        .success(function(isPay){
     		         vm.isPay = isPay; 	
-	                 console.log("OK DE POST");
+	                 console.log("OK SEND PAYMENT");
 	        		})
 	        		.error(function(){                
 	                 console.log("ERROR DE POST");
-	        		}); 
+	        		});      
+    		     
     		        
-    		     // SEND ORDER //	
+    		     // SEND ORDER //
+    		        vm.isNotBuy = false;
+    		        
             		$http.get("http://localhost:8080/SegurosyViajes/WSUserOrderRest/order", {params: 
             		{  insuranceCode: vm.insurance.code,
             		   destinationCode: vm.insurance.destinationCode,
@@ -197,36 +182,125 @@
             		.success(function(respuesta){				
     				vm.orderConfirmation = respuesta;
     				orderFactory.order = vm.orderConfirmation;
-    				console.log("OK DE POST");			
+    				console.log("OK SEND ORDER");			
     				
     				orderFactory.insurance = vm.insurance;
             		orderFactory.form = vm.form;
             		        		          	
             		orderFactory.customer = vm.customer;
             		orderFactory.address = vm.address;
-            		orderFactory.payment = vm.payment;        		       	
+            		orderFactory.payment = vm.payment; 
             		$location.url("/showOrderView");
-    				
             		})
     				.error(function(){	        				 
-    				console.log("ERROR DE POST");
-    				});        		
-            		}        		
+    				console.log("ERROR DE POST");    				
+     		        vm.isNotBuy = true;
+    				}); 
+            		
+            		
+            	}        		
          })	
          
-        .controller('ShowOrderCtrl', function($location, orderFactory){		 
+        .controller('ShowOrderCtrl', function($http, $location, orderFactory){		 
 		        		
         		var vm = this;      		
         		vm.insurance = orderFactory.insurance;
         		vm.customer = orderFactory.customer;
         		vm.address = orderFactory.address;
         		vm.payment = orderFactory.payment;
-        		vm.order = orderFactory.order;        		
+        		vm.order = orderFactory.order;    
+        		
+        		
+        		// SEND CUSTOMER //        		
+		        $http.get("http://localhost:8080/SegurosyViajes/WSUserOrderRest/addCustomer", {params:
+		        	{orderId: vm.order.id, 
+		        	name: vm.customer.name,
+		        	surnames: vm.customer.surname,
+	        		email: vm.customer.email,
+	        		phone: vm.customer.phone,
+	        		address: vm.customer.address.address,
+	        		city: vm.customer.address.city,
+	        		province: vm.customer.address.province,
+	        		postalCode: vm.customer.address.postalCode,
+	        		country: vm.customer.address.country 
+		        	}
+		        	})		        	
+		        	
+		        .success(function(){ 		        	
+		        	console.log("OK DE SEND CUSTOMER");    		        	
+		        })
+		        .error(function(){                
+		           console.log("ERROR DE POST");
+		        });
+        		
+        		
+        		// SEND CONFIRMATION EMAIL //	
+        		$http.get("http://localhost:8080/SegurosyViajes/WSUserOrderRest/sendConfirmation", {params: 
+        		{  orderId: vm.order.code            			
+        		}
+        		})
+        		.success(function(){       		          	
+	                 console.log("OK SEND EMAIL");
+	        	})
+	        	.error(function(){                
+	                 console.log("ERROR DE POST");
+	        	});        
+        		
         })
         
-        .controller('FindOrderCtrl', function($location){		 
+        .controller('FindOrderCtrl', function($http, $location, showFindOrder){		 
 		        		
-        		var vm = this;      		
+        		var vm = this;        		        		
+        		
+        		vm.codeFindOrder = function(){
+        			vm.order = {};
+        			vm.isFound = false;
+            		vm.isNotFound = false;
+            		
+            		$http.get("http://localhost:8080/SegurosyViajes/WSUserOrderRest/findOrderById", {params: 
+            		{  orderId: vm.code,
+            		   email: vm.email            		   	
+            		}
+            		})
+            		.success(function(respuestaCode){  
+            			 vm.order = respuestaCode;
+            			 console.log("OK SEND FIND ID"); 
+            			 if (vm.order.id == null) {
+            		            vm.isNotFound = true;
+            		        } else {
+            		        	vm.isFound = true;
+            		        }            			 
+            			 showFindOrder.order = vm.order;    	                     	                 
+    	        	})
+    	        	.error(function(){                
+    	                 console.log("ERROR DE POST");
+    	        	});        			
+        		}
+        		
+        		vm.nameFindOrder = function(){  
+        			vm.order = {};
+        			vm.isFound = false;
+            		vm.isNotFound = false;
+            		
+        			$http.get("http://localhost:8080/SegurosyViajes/WSUserOrderRest/findOrderByName", {params: 
+            		{  name: vm.name,
+        			   surnames: vm.surnames,
+            		   email: vm.email            		   	
+            		}
+            		})
+            		.success(function(respuestaName){
+            			 vm.order = respuestaName;
+    	                 console.log("OK SEND FIND NAME");    	                 
+    	                 if (vm.order.id == null) {
+         		             vm.isNotFound = true;
+         		        } else {
+         		        	vm.isFound = true;
+         		        }
+    	        	})
+    	        	.error(function(){                
+    	                 console.log("ERROR DE POST");
+    	        	});
+        		}  		
         		        		
         })
          
@@ -244,15 +318,14 @@
 																						        		consulta: ct.contact.texto		        		
 																						        	    }	    
 	     																				  })
-	     		.success(function(answer){                
-	     			ct.contactAnswer = answer;
+	     		.success(function(){	     			
 	     			console.log("OK DE POST");
 	     		})
 	     		.error(function(){                
 	              console.log("ERROR DE POST");
 	     		});   			        	
-	     	
-	     	ct.contact = {};		        			        	
+	     	ct.contactAnswer = "Tu consulta se ha enviado correctamente. En breve nos pondermos en contacto contigo";
+	     	//ct.contact = {};		        			        	
 	     }	      
 	}]);
 	        

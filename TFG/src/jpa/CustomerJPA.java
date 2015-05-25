@@ -8,8 +8,12 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -41,7 +45,9 @@ public class CustomerJPA implements Serializable {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-
+	
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "PERSON_ID")
 	public PersonJPA getName() {
 		return name;
 	}
@@ -65,7 +71,9 @@ public class CustomerJPA implements Serializable {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-
+	
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "ADDRESS_ID")
 	public AddressJPA getAddress() {
 		return address;
 	}

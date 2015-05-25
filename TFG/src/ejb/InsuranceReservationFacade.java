@@ -15,8 +15,7 @@ public interface InsuranceReservationFacade {
 
 	public List<InsuranceJPA> findAllInsurances(String origin, String destination, Date initDate,Date endDate);
 	
-	public OrderJPA bookInsurance(String insurance, Date initDate, Integer days, String origin, String destination, 
-								  Integer numPersons, List<PersonJPA> persons);
+	public OrderJPA bookInsurance (InsuranceJPA insurance, Integer paxsNumber, String poblacion, List<String> persons);
 	
 	public OrderJPA findOrder(String orderId);
 	
