@@ -45,7 +45,7 @@ public class UserOrderFacadeBean implements UserOrderFacadeRemote {
 	
 	@Override
 	public OrderJPA order(Integer insuranceCode, Integer destinationCode, Integer duracionCode, String initDate, 
-						  Integer paxsNum, String city, String person) throws ParseException {
+						  Integer paxsNum, String city, List<String> persons) throws ParseException {		
 		
 		// Dar formato a las fechas //
 		try {
@@ -58,23 +58,23 @@ public class UserOrderFacadeBean implements UserOrderFacadeRemote {
 		ins.setDestinationCode(destinationCode);
 		ins.setDuracionCode(duracionCode);
 		ins.setInitDate(iDate);				
-		
-		// Generar List //
-		List<String> persons = new ArrayList<String>();
-		persons.add(person);		
-		
+				
 		InsuranceReservationFacade insR = new InsuranceReservationFacadeBean();		
 		OrderJPA order = insR.bookInsurance(ins, paxsNum, city, persons);
-
-		ins = order.getInsurance();
+		
+		PersonJPA tempPerson = new PersonJPA();		
+		for (Iterator<PersonJPA> itP = order.getPersons().iterator(); itP.hasNext();) {
+			tempPerson = itP.next();			
+			entman.persist(tempPerson);
+		}
+		
+		ins = order.getInsurance();		
 		entman.persist(ins);
 		entman.persist(order);
 		
 		return order;
 		
-		}catch (ParseException e) {	
-			  System.out.println("Marc Parse Error " + e);
-			 // e.printStackTrace();
+		}catch (ParseException e) {				  	 
 			  return null;
 		}		
 		
@@ -140,7 +140,7 @@ public class UserOrderFacadeBean implements UserOrderFacadeRemote {
 				
 				order = tempOrder;
 			}			
-		}	
+		}		
 		return order;
 	}
 	

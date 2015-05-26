@@ -33,7 +33,7 @@ public interface UserOrderFacadeRemote {
 	@Path("/order")	
 	public OrderJPA order(@QueryParam("insuranceCode")Integer insuranceCode, @QueryParam("destinationCode")Integer destinationCode,
 						  @QueryParam("duracionCode")Integer duracionCode, @QueryParam("initDate")String initDate, 
-						  @QueryParam("paxsNum")Integer paxsNum, @QueryParam("city")String city, @QueryParam("persons") String person		
+						  @QueryParam("paxsNum")Integer paxsNum, @QueryParam("city")String city, @QueryParam("persons") List<String> persons		
 						 )throws ParseException;					  
 	
 	@GET	

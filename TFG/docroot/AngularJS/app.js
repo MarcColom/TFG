@@ -74,6 +74,7 @@
         	data.address = {};
         	data.payment = {};
         	data.order = {};
+        	data.persons = [];
         	        	
         	return data;     	        	     	
         })
@@ -84,15 +85,15 @@
         	return data;        	
         })       
                 	
-        .controller('UserFormCtrl', function($location, formFactory, findInsuranceFactory){		 
+        .controller('UserFormCtrl', function($location, $route, formFactory, findInsuranceFactory){		 
 		
         		var vm = this;        		
         		vm.today = formFactory.today;        		     		
         		  		
         		vm.AddForm = function(){        			
-        			formFactory.form = vm.user;		        	
-		        	//vm.user = {};		       	        	
-		        	$location.url("/showInsurancesView");	        	
+        			formFactory.form = vm.user; 		        	      	        	
+		        	$location.url("/showInsurancesView");
+		        	$route.reload();
 		        }		      
          })
          
@@ -132,17 +133,17 @@
         		var vm = this;        		
         		vm.form = orderFactory.form;        		
         		vm.insurance = orderFactory.insurance;        		
-        		vm.persons = {};        		
-        		vm.personNum = 1;
-        		
+        		vm.persons = [];        		
         		vm.customer = orderFactory.customer;
         		vm.address = orderFactory.address;
-        		vm.payment = orderFactory.payment;        		
-        		//vm.order = orderFactory.order;
-        	
+        		vm.payment = orderFactory.payment;         	
         		
-        		vm.getPaxsNumber = function() {
-        		    return new Array(vm.personNum);   
+        		vm.getPaxsNumber = function() {        			
+        			vm.paxs = [];
+        				for(var i=0;i<vm.personNum;i++) {
+        					vm.paxs.push(i);
+        				}        			
+        			return vm.paxs;  
         		}
         		
         		vm.sendOrder = function(){ 		
@@ -153,8 +154,7 @@
        					ccNumber: vm.payment.ccNumber,
        					ccExp: vm.payment.ccExp,
        					ccCvs: vm.payment.ccCvs,
-       					ccName: vm.payment.ccName,
-       					//customer: vm.customer.surname
+       					ccName: vm.payment.ccName,       					
     		        };	 	
     		        $http.post("http://localhost:8080/SegurosyViajes/WSUserOrderRest/payment", params)
     		        .success(function(isPay){
@@ -168,6 +168,8 @@
     		        
     		     // SEND ORDER //
     		        vm.isNotBuy = false;
+    		        console.log("SEND ORDER PERSONS");
+    		        console.log(vm.persons);
     		        
             		$http.get("http://localhost:8080/SegurosyViajes/WSUserOrderRest/order", {params: 
             		{  insuranceCode: vm.insurance.code,
@@ -176,7 +178,7 @@
             		   initDate: vm.form.initDate,        		   
             		   paxsNum: vm.personNum,
             		   city: vm.customer.address.city,        		   
-            		   persons: vm.order.persons        			        			        	
+            		   persons: vm.persons        			        			        	
             		}
             		})      		        		
             		.success(function(respuesta){				
@@ -186,7 +188,7 @@
     				
     				orderFactory.insurance = vm.insurance;
             		orderFactory.form = vm.form;
-            		        		          	
+            		orderFactory.persons = vm.persons;
             		orderFactory.customer = vm.customer;
             		orderFactory.address = vm.address;
             		orderFactory.payment = vm.payment; 
@@ -208,7 +210,8 @@
         		vm.customer = orderFactory.customer;
         		vm.address = orderFactory.address;
         		vm.payment = orderFactory.payment;
-        		vm.order = orderFactory.order;    
+        		vm.order = orderFactory.order; 
+        		vm.persons = orderFactory.persons;
         		
         		
         		// SEND CUSTOMER //        		
@@ -324,8 +327,7 @@
 	     		.error(function(){                
 	              console.log("ERROR DE POST");
 	     		});   			        	
-	     	ct.contactAnswer = "Tu consulta se ha enviado correctamente. En breve nos pondermos en contacto contigo";
-	     	//ct.contact = {};		        			        	
+	     	ct.contactAnswer = "Tu consulta se ha enviado correctamente. En breve nos pondermos en contacto contigo";	     			        			        	
 	     }	      
 	}]);
 	        
