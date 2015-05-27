@@ -11,6 +11,7 @@ import javax.ejb.Remote;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 
 import jpa.OrderJPA;
 
@@ -21,7 +22,7 @@ public interface AdministratorFacadeRemote {
 	@GET	
 	@Produces("application/json")
 	@Path("/login")	
-	public Boolean login(String user, String password);	
+	public Boolean login(@QueryParam("user")String user, @QueryParam("password")String password);	
 	
 	@GET	
 	@Produces("application/json")

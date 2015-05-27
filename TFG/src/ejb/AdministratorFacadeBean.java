@@ -22,18 +22,26 @@ public class AdministratorFacadeBean implements AdministratorFacadeRemote {
 	@PersistenceContext(unitName = "SegurosyViajes")
 	private EntityManager entman;
 	
+	// Constantes para LOGIN Entorno de Pruebas // 
+	private static final String USER = "TFGJEE";
+	private static final String PASSWORD = "UOC1234";
+	
 	@Override
 	public Boolean login(String user, String password){	
-		// ***** TO DO **** //
+		
 		Boolean isLogin = false;
+		if (user.equals(USER) && password.equals(PASSWORD)) {
+			isLogin=true;
+		}
 		return isLogin;
 	}
 	
 	@Override		
 	public List<OrderJPA> findAllOrders() {
-		// ***** TO DO **** //
-		List<OrderJPA> orders = new ArrayList<OrderJPA>();
-		return orders;
+					
+		@SuppressWarnings("unchecked")		
+		List<OrderJPA> allOrders = entman.createQuery("from OrderJPA order by ORDER_ID").getResultList();		
+		return allOrders;
 	}
 	
 	@Override	

@@ -38,7 +38,12 @@
         		controller: "contactCtrl",
         		controllerAs: "ct",
         		templateUrl: "faqs.html"
-        	})       	
+        	})
+        	.when("/admin",{
+        		controller: "AdminCtrl",
+        		controllerAs: "adminCtrl",
+        		templateUrl: "administratorLoginView.html"
+        	})        	
         	
         	.otherwise({ reditrectTo : "/" });        	
         	
@@ -329,7 +334,61 @@
 	     		});   			        	
 	     	ct.contactAnswer = "Tu consulta se ha enviado correctamente. En breve nos pondermos en contacto contigo";	     			        			        	
 	     }	      
-	}]);
+	 	}])
+	 	
+	 	.controller('AdminCtrl', function($http, $location, showFindOrder){		 
+	 		
+			var vm=this;
+			vm.isLogin = false;
+			vm.isError = false;
+			vm.orders = {};
+			
+			vm.login = function(){    			
+        		
+				vm.isLogin = false;
+				vm.isError = false;
+				
+        		$http.get("http://localhost:8080/SegurosyViajes/WSAdministratorRest/login", {params: 
+        		{  user: vm.user,
+        		   password: vm.password            		   	
+        		}
+        		})
+        		.success(function(respuesta){  
+        			 vm.isLogin = respuesta;
+        			 vm.user = null;
+        			 vm.password = null;
+        			 console.log("OK IS LOGIN");
+        			 if (vm.isLogin == true) {
+     		             vm.findAllOrders();
+     		        }else {
+     		        	vm.isError = true;
+     		        } 
+	        	})
+	        	.error(function(){                
+	                 console.log("ERROR DE POST");
+	        	});        			
+    		}
+			
+			vm.findAllOrders = function(){    			
+        		
+        		$http.get("http://localhost:8080/SegurosyViajes/WSAdministratorRest/findAllOrders")
+        		.success(function(respuesta){  
+        			 vm.orders = respuesta;
+        			 console.log("OK LOGIN FIND ORDERS");        			 
+	        	})
+	        	.error(function(){                
+	                 console.log("ERROR DE POST");
+	        	});        			
+    		}
+			
+			vm.filterOrders = function() {
+				
+			}
+			
+			
+			
+	 	})	
+	;
 	        
 	        
 	
