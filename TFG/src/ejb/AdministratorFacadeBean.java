@@ -4,8 +4,13 @@
 
 package ejb;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -45,25 +50,85 @@ public class AdministratorFacadeBean implements AdministratorFacadeRemote {
 	}
 	
 	@Override	
-	public OrderJPA findOrderById(String orderId){
-		// ***** TO DO **** //		
+	public List<OrderJPA> findOrderByCode(Integer orderCode){
+				
 		OrderJPA order = new OrderJPA();
-		return order;
+		List<OrderJPA> findOrder = new ArrayList <OrderJPA>();
+		
+		@SuppressWarnings("unchecked")		
+		List<OrderJPA> allOrders = entman.createQuery("from OrderJPA order by ORDER_ID").getResultList();	
+		
+		for (Iterator<OrderJPA> it = allOrders.iterator(); it.hasNext();) {
+			order = it.next();
+			
+			if (order.getCode().equals(orderCode)) {			
+				findOrder.add(order);
+			}			
+		}		
+		return findOrder;
 	}
 		
 	@Override
 	public List<OrderJPA> findOrderByEmail(String email) {
-		// ***** TO DO **** //		
-		List<OrderJPA> orders = new ArrayList<OrderJPA>();
-		return orders;
-	}
-
-	@Override
-	public List<OrderJPA> findOrderByDate(Date from, Date to) {
-		// ***** TO DO **** //		
-		List<OrderJPA> orders = new ArrayList<OrderJPA>();
-		return orders;
+	
+		OrderJPA order = new OrderJPA();
+		List<OrderJPA> findOrder = new ArrayList <OrderJPA>();
+		
+		@SuppressWarnings("unchecked")		
+		List<OrderJPA> allOrders = entman.createQuery("from OrderJPA order by ORDER_ID").getResultList();	
+		
+		for (Iterator<OrderJPA> it = allOrders.iterator(); it.hasNext();) {
+			order = it.next();			
+			
+			if (order.getCustomer().getEmail().equalsIgnoreCase(email)) {				
+				findOrder.add(order);
+			}			
+		}		
+		return findOrder;
 	}
 	
-}	
+
+	@Override
+	@SuppressWarnings("unchecked")	
+	public List<OrderJPA> findOrderByDate(String from, String to) {
+		
+		System.out.println("Strings from " + from + " To " + to);
+		
+		// Dar formato a las fechas //
+		try {   
+		    
+		    DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+		    
+		    Calendar fromDate = Calendar.getInstance();
+		    fromDate.setTime(sdf.parse(from));
+		    fromDate.set(Calendar.HOUR_OF_DAY, 0);		   
+		    fromDate.add(Calendar.DATE, 1);
+		    
+		    Calendar toDate = Calendar.getInstance();
+		    toDate.setTime(sdf.parse(to));		    
+		    toDate.set(Calendar.HOUR_OF_DAY, 0);		   
+		    toDate.add(Calendar.DATE, 2);	
+		
+		OrderJPA order = new OrderJPA();
+		List<OrderJPA> findOrder = new ArrayList <OrderJPA>();
+		
+			
+		List<OrderJPA> allOrders = entman.createQuery("from OrderJPA order by ORDER_ID").getResultList();	
+		
+		for (Iterator<OrderJPA> it = allOrders.iterator(); it.hasNext();) {
+			order = it.next();
+			
+			if ((order.getOrderDate().compareTo(fromDate.getTime())>=0) && (order.getOrderDate().compareTo(toDate.getTime())<=0)) {				
+				findOrder.add(order);				
+			}			
+		}		
+		return findOrder;
+		
+		}catch (ParseException e) {				  	 
+			  return null;
+		}
+	}
+
+}
+
 	

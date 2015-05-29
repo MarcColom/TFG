@@ -31,18 +31,18 @@ public interface AdministratorFacadeRemote {
 	
 	@GET	
 	@Produces("application/json")
-	@Path("/findOrderById")	
-	public OrderJPA findOrderById(String orderId);	
+	@Path("/findOrderByCode")	
+	public List<OrderJPA> findOrderByCode(@QueryParam("orderCode")Integer orderCode);	
 
 	@GET	
 	@Produces("application/json")
 	@Path("/findOrderByEmail")	
-	public List<OrderJPA> findOrderByEmail(String email);
+	public List<OrderJPA> findOrderByEmail(@QueryParam("email")String email);
 	
 	@GET	
 	@Produces("application/json")
 	@Path("/findOrderByDate")	
-	public List<OrderJPA> findOrderByDate(Date from, Date to);
+	public List<OrderJPA> findOrderByDate(@QueryParam("from")String from, @QueryParam("to")String to);
 }
 
 

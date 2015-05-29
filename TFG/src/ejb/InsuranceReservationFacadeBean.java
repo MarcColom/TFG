@@ -38,11 +38,11 @@ public class InsuranceReservationFacadeBean implements InsuranceReservationFacad
 	}
 
 	@Override
-	public OrderJPA bookInsurance (InsuranceJPA insurance, Integer paxsNumber, String poblacion, List<String> persons) {	
+	public OrderJPA bookInsurance (InsuranceJPA insurance, Integer paxsNumber, Float netPrice, String poblacion, List<String> persons) {	
 		
 		// Llama a la classe que gestiona el Web Service de TAEDS
 		TaedsBookFacadeBean taeds = new TaedsBookFacadeBean();		
-		OrderJPA order = taeds.TaedsBook(insurance, paxsNumber, poblacion, persons);		
+		OrderJPA order = taeds.TaedsBook(insurance, paxsNumber, netPrice, poblacion, persons);		
 		return order;
 	}
 	

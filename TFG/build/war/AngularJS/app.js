@@ -182,6 +182,7 @@
             		   duracionCode: vm.insurance.duracionCode,
             		   initDate: vm.form.initDate,        		   
             		   paxsNum: vm.personNum,
+            		   netPrice: vm.insurance.netPrice,
             		   city: vm.customer.address.city,        		   
             		   persons: vm.persons        			        			        	
             		}
@@ -336,15 +337,16 @@
 	     }	      
 	 	}])
 	 	
-	 	.controller('AdminCtrl', function($http, $location, showFindOrder){		 
+	 	.controller('AdminCtrl', function($http, $location, showFindOrder, $filter){		 
 	 		
 			var vm=this;
 			vm.isLogin = false;
 			vm.isError = false;
-			vm.orders = {};
+			vm.isNotFound = false;
+			vm.orders = {};			
+			//vm.from = $filter('date')(vm.from, "dd/MM/yyyy");
 			
-			vm.login = function(){    			
-        		
+			vm.login = function(){    		        		
 				vm.isLogin = false;
 				vm.isError = false;
 				
@@ -369,8 +371,7 @@
 	        	});        			
     		}
 			
-			vm.findAllOrders = function(){    			
-        		
+			vm.findAllOrders = function(){        		
         		$http.get("http://localhost:8080/SegurosyViajes/WSAdministratorRest/findAllOrders")
         		.success(function(respuesta){  
         			 vm.orders = respuesta;
@@ -381,8 +382,51 @@
 	        	});        			
     		}
 			
-			vm.filterOrders = function() {
-				
+			vm.filterCodeOrders = function() {
+				$http.get("http://localhost:8080/SegurosyViajes/WSAdministratorRest/findOrderByCode", {params: 
+        		{  orderCode: vm.code	        	            		   	
+	        	}
+	        	})
+        		.success(function(respuesta){  
+        			 vm.orders = respuesta;
+        			 console.log("OK LOGIN FIND CODE ORDERS");
+        			 console.log(vm.orders);
+        /******/	 if (vm.orders == null) {
+        				 vm.isNotFound = true;
+     		        }
+	        	})
+	        	.error(function(){                
+	                 console.log("ERROR DE POST");
+	        	});       
+			}
+			
+			vm.filterEmailOrders = function() {
+				$http.get("http://localhost:8080/SegurosyViajes/WSAdministratorRest/findOrderByEmail", {params: 
+        		{  email: vm.email	        	            		   	
+	        	}
+	        	})
+        		.success(function(respuesta){  
+        			 vm.orders = respuesta;
+        			 console.log("OK LOGIN FIND EMAIL ORDERS");        			 
+	        	})
+	        	.error(function(){                
+	                 console.log("ERROR DE POST");
+	        	});       
+			}
+			
+			vm.filterDateOrders = function() {
+				$http.get("http://localhost:8080/SegurosyViajes/WSAdministratorRest/findOrderByDate", {params: 
+        		{  from: vm.from,
+				   to: vm.to	
+	        	}
+	        	})
+        		.success(function(respuesta){  
+        			 vm.orders = respuesta;
+        			 console.log("OK LOGIN FIND DATE ORDERS");        			 
+	        	})
+	        	.error(function(){                
+	                 console.log("ERROR DE POST");
+	        	});       
 			}
 			
 			

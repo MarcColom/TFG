@@ -97,7 +97,8 @@ public class TaedsLoginFacadeBean {
 		InsuranceJPA tempInsurance = new InsuranceJPA();
 		RESPUESTACONFIGURACION.MODALIDADES.MODALIDAD tempModalidad = itM.next();
 			
-		if (tempModalidad.getComisionable().equals("Si")) {
+		if (tempModalidad.getComisionable().equals("Si") && !tempModalidad.getNombre().startsWith("RACE")
+			 && !tempModalidad.getNombre().startsWith("ANULACION") && !tempModalidad.getNombre().startsWith("CANCELACION")) {			
 			tempInsurance = setInsurance(tempInsurance, tempModalidad, origin, destination, initDate, endDate);
 			if (tempInsurance.getGrossPrice() != 0.0) {
 			insurances.add(tempInsurance);

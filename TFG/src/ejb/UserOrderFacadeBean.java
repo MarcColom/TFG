@@ -45,7 +45,7 @@ public class UserOrderFacadeBean implements UserOrderFacadeRemote {
 	
 	@Override
 	public OrderJPA order(Integer insuranceCode, Integer destinationCode, Integer duracionCode, String initDate, 
-						  Integer paxsNum, String city, List<String> persons) throws ParseException {		
+						  Integer paxsNum, Float netPrice, String city, List<String> persons) throws ParseException {		
 		
 		// Dar formato a las fechas //
 		try {
@@ -60,7 +60,7 @@ public class UserOrderFacadeBean implements UserOrderFacadeRemote {
 		ins.setInitDate(iDate);				
 				
 		InsuranceReservationFacade insR = new InsuranceReservationFacadeBean();		
-		OrderJPA order = insR.bookInsurance(ins, paxsNum, city, persons);
+		OrderJPA order = insR.bookInsurance(ins, paxsNum, netPrice, city, persons);
 		
 		PersonJPA tempPerson = new PersonJPA();		
 		for (Iterator<PersonJPA> itP = order.getPersons().iterator(); itP.hasNext();) {
