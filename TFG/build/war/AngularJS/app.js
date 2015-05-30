@@ -7,6 +7,11 @@
         	.when("/",{
         		controller: "UserFormCtrl",
         		controllerAs: "formCtrl",
+        		templateUrl: "cover.html"       			
+        	})        	
+        	.when("/form",{
+        		controller: "UserFormCtrl",
+        		controllerAs: "formCtrl",
         		templateUrl: "findInsuranceView.html"       			
         	})
         	.when("/showInsurancesView",{
