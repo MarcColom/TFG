@@ -1,0 +1,118 @@
+<!doctype html>
+
+<html lang="es" ng-app="app">
+  
+  <head>
+   <meta charset="utf-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1">   
+   <title>SegurosyViajes</title>   
+   <link href="bootstrap-3.3.4/css/bootstrap.min.css" rel="stylesheet">
+   <link href="css/index.css" rel="stylesheet">
+  </head>
+  
+  <body> 	
+  
+  <div class="row top-buffer">  	
+  	<div class="col-md-6">
+  		<br>
+  		<br>
+  		<h1> Seguros </h1>
+  	</div>	 
+  	<div class="col-md-6">
+  		<img src="./images/logo_blau_mini.png" class="img-responsive" alt="Responsive image">
+  	</div>
+  	<legend></legend>
+  </div>  
+  	
+	<div ng-controller="ShowInsuranceCtrl as showCtrl">
+	
+	<div class="row top-buffer">	
+	<div class="col-md-6">
+			
+		<div>
+			<div class="row top-buffer">
+			<div class="col-md-2"></div>				
+			<div class="col-md-8">				
+			
+			<div class="alert alert-dismissible alert-info">
+				<h5>Mi selección:</h5>
+				<br>				
+				<strong>Residencia: </strong> {{showCtrl.form.origin}}				
+				<br><strong class="text-info">Destino: </strong> {{showCtrl.form.destination}}				
+				<br><strong class="text-info">Inicio: </strong> {{showCtrl.form.initDate | date:'dd/MM/yyyy'}}				
+				<br><strong class="text-info">Fin: </strong> {{showCtrl.form.endDate | date:'dd/MM/yyyy'}}
+				<br>
+				<br>
+				<br>
+			</div>	
+			<div class="alert alert-dismissible alert-info">	
+				<h5>Nueva busqueda:</h5>
+				<br>							
+				<div ng-include="'findInsuranceView.html'"></div>
+			</div>
+			</div>
+			<div class="col-md-2"></div>
+			</div>		
+		</div>
+		<br>
+	
+	
+	</div>
+  
+  	
+  	 <div class="col-md-6">
+	
+	 
+	<div ng-repeat="insurance in showCtrl.insurances | orderBy:'grossPrice'">	  			
+			<div class="panel panel-primary">
+			<div class="panel-heading">
+				
+			<div class="media">
+  				<div class="media-left media-middle">
+    				<img src="{{insurance.image}}" alt="imagen seguro" class="img-rounded">	
+  				</div>
+  				<div class="media-body media-middle">
+    				<h1 class="panel-title">{{insurance.name}}</h1>        				
+  				</div>
+  				<div class="media-right media-top">
+    				<img src="{{insurance.company.logo}}" alt="compañia" class="img-rounded">
+  				</div>
+			</div>	
+			</div>	
+			
+			<div class="panel-body">
+					<h6 class="text-muted">{{insurance.generalConditions}}</h6>
+					<a href="{{insurance.coverage}}" target="_blank" class="btn btn-primary">Condiciones Generales</a>
+			</div>			
+			
+			<div class="panel-footer">
+			<div class="row top-buffer">	  	
+				<div class="col-md-9">	
+					<p class="text-info"> <strong> Precio: {{insurance.grossPrice}} € </strong></p>					
+				</div>				
+				<div class="col-md-3">				
+					<button class="btn btn-info" ng-click="showCtrl.AddInsurance(insurance)">Comprar</button>					
+				</div>
+			</div>
+			</div>
+			
+							  				
+			
+			</div>
+	</div>
+	</div>
+	</div>
+	</div>
+	
+	
+	
+	
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  <script src="bootstrap-3.3.4/js/bootstrap.min.js"></script>  
+  <script type="text/javascript" src="AngularJS/angular.min.js"></script>
+  <script type="text/javascript" src="AngularJS/app.js"></script>
+  
+      
+  </body>
+</html>	

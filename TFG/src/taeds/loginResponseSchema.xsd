@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="RESPUESTA_CONFIGURACION">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="MODALIDADES">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="MODALIDAD" maxOccurs="unbounded" minOccurs="0">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element type="xs:anyURI" name="IMGMODURL"/>
+                    <xs:element type="xs:anyURI" name="IMGCOURL"/>
+                    <xs:element type="xs:anyURI" name="MODURL"/>
+                    <xs:element type="xs:string" name="LABEL"/>
+                    <xs:element name="DESTINO" maxOccurs="unbounded" minOccurs="0">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="DURACION" maxOccurs="unbounded" minOccurs="0">
+                            <xs:complexType>
+                              <xs:simpleContent>
+                                <xs:extension base="xs:string">
+                                  <xs:attribute type="xs:string" name="nombre" use="optional"/>
+                                  <xs:attribute type="xs:short" name="codigo" use="optional"/>
+                                  <xs:attribute type="xs:short" name="dies" use="optional"/>
+                                  <xs:attribute type="xs:float" name="precio" use="optional"/>
+                                  <xs:attribute type="xs:float" name="precioC" use="optional"/>
+                                </xs:extension>
+                              </xs:simpleContent>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                        <xs:attribute type="xs:string" name="nombre" use="optional"/>
+                        <xs:attribute type="xs:byte" name="codigo" use="optional"/>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="GARANTIAS" minOccurs="0">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="GARANTIA" maxOccurs="unbounded" minOccurs="0">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="CAPITAL" maxOccurs="unbounded" minOccurs="0">
+                                  <xs:complexType>
+                                    <xs:simpleContent>
+                                      <xs:extension base="xs:string">
+                                        <xs:attribute type="xs:int" name="nombre" use="optional"/>
+                                        <xs:attribute type="xs:byte" name="codigoCapital" use="optional"/>
+                                        <xs:attribute type="xs:byte" name="codigoDestino" use="optional"/>
+                                        <xs:attribute type="xs:byte" name="codigoDuracion" use="optional"/>
+                                        <xs:attribute type="xs:float" name="precio" use="optional"/>
+                                        <xs:attribute type="xs:float" name="precioCoste" use="optional"/>
+                                      </xs:extension>
+                                    </xs:simpleContent>
+                                  </xs:complexType>
+                                </xs:element>
+                              </xs:sequence>
+                              <xs:attribute type="xs:string" name="nombre" use="optional"/>
+                              <xs:attribute type="xs:byte" name="codigoGarantia" use="optional"/>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute type="xs:string" name="nombre" use="optional"/>
+                  <xs:attribute type="xs:short" name="codigo" use="optional"/>
+                  <xs:attribute type="xs:string" name="TAEDSOK" use="optional"/>
+                  <xs:attribute type="xs:string" name="Comisionable" use="optional"/>
+                  <xs:attribute type="xs:string" name="valorGlobal" use="optional"/>
+                  <xs:attribute type="xs:string" name="maxPax" use="optional"/>
+                  <xs:attribute type="xs:string" name="isAccident" use="optional"/>
+                  <xs:attribute type="xs:string" name="fechafin" use="optional"/>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="AGENCIA">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element type="xs:anyURI" name="IMGAGURL"/>
+              <xs:element type="xs:anyURI" name="IMGGRPURL"/>
+              <xs:element type="xs:string" name="PRECIO_CREDITO"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="TRAMITADORES">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="TRAMITADOR" maxOccurs="unbounded" minOccurs="0">
+                <xs:complexType>
+                  <xs:simpleContent>
+                    <xs:extension base="xs:string">
+                      <xs:attribute type="xs:string" name="nombre" use="optional"/>
+                      <xs:attribute type="xs:short" name="codigo" use="optional"/>
+                      <xs:attribute type="xs:string" name="nif" use="optional"/>
+                    </xs:extension>
+                  </xs:simpleContent>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

@@ -1,0 +1,235 @@
+<!doctype html>
+
+<html lang="es" ng-app="app">
+  
+  <head>
+   <meta charset="utf-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1">   
+   <title>SegurosyViajes</title>   
+   <link href="bootstrap-3.3.4/css/bootstrap.min.css" rel="stylesheet">
+   <link href="css/index.css" rel="stylesheet">
+  </head>
+  
+  <body> 
+  
+  <div class="row top-buffer">  	
+  	<div class="col-md-6">
+  		<br>
+  		<br>
+  		<h1> Compra del Seguro </h1>
+  	</div>	 
+  	<div class="col-md-6">
+  		<img src="./images/logo_blau_mini.png" class="img-responsive" alt="Responsive image">
+  	</div>
+  	<legend></legend>
+  </div>  	
+		
+	
+	<div class="row top-buffer">
+	<div class="col-md-4">
+		
+		<fieldset> 	
+		<legend> <h3> Seguro seleccionado </h3> </legend>
+		
+			<div class="panel panel-primary">
+			<div class="panel-heading">
+				
+			<div class="media">
+  				<div class="media-left media-middle">
+    				<img src="{{orderCtrl.insurance.image}}" alt="imagen seguro" class="img-rounded">	
+  				</div>
+  				<div class="media-body media-middle">
+    				<h1 class="panel-title">{{orderCtrl.insurance.name}}</h1>    
+  				</div>
+  				<div class="media-right media-top">
+    				<img src="{{orderCtrl.insurance.company.logo}}" alt="compañia" class="img-rounded">
+  				</div>
+			</div>	
+			</div>
+			
+							
+  				<div class="panel-body">
+					<div class="text-info">
+						<strong>Residencia: </strong> {{orderCtrl.form.origin}}				
+						<br><strong class="text-info">Destino: </strong> {{orderCtrl.form.destination}}				
+						<br><strong class="text-info">Inicio: </strong> {{orderCtrl.form.initDate | date:'dd/MM/yyyy'}}				
+						<br><strong class="text-info">Fin: </strong> {{orderCtrl.form.endDate | date:'dd/MM/yyyy'}}
+					</div>					
+									
+			
+		<!--  <div class="alert alert-dismissible alert-info">  				
+  				<a href="{{orderCtrl.insurance.coverage}}" class="alert-link" target="_blank">Detalle de las coberturas</a>
+			</div> -->						
+			
+			
+					<h6 class="text-muted">{{orderCtrl.insurance.generalConditions}}</h6>
+					<a href="{{orderCtrl.insurance.coverage}}" target="_blank" class="btn btn-primary">Condiciones Generales</a>
+			</div>			
+			
+			<div class="panel-footer">
+			<div class="row top-buffer">	  	
+				<div class="col-md-9">	
+					<p class="text-info"> <strong> Precio: {{orderCtrl.insurance.grossPrice}} € </strong></p>					
+				</div>			
+			</div>
+			</div>		
+		</div>
+		</fieldset>
+	</div>
+  	
+  	<div class="col-md-6">  	
+  	 
+  	<form class="form-horizontal" name="orderForm" ng-submit="orderForm.$valid && orderCtrl.sendOrder()" novalidate>
+			
+			<fieldset> 
+			<div class="well well-lg">  	 	  	 	
+		  	<legend><h3> Datos del comprador: </h3></legend> 
+	  	 	
+	  	 	<div class="form-group">
+	   			<label>Nombre:</label>
+	   			<input class="form-control" ng-model="orderCtrl.customer.name" type="text"  placeholder="Introduce el nombre" required/>
+			</div>	
+	  	 	
+	  	 	<div class="form-group">
+	   			<label>Apellidos:</label>
+	   			<input class="form-control" ng-model="orderCtrl.customer.surname" type="text"  placeholder="Introduce los apellidos" required/>
+			</div>
+						
+			<div class="form-group">
+	   			<label>Email:</label>
+	   			<input class="form-control" ng-model="orderCtrl.customer.email" type="email"  placeholder="Introduce el email" required/>
+			</div>		
+			
+			<div class="form-group">
+	   			<label>Teléfono:</label>
+	   			<input class="form-control" ng-model="orderCtrl.customer.phone" type="text"  placeholder="Introduce el teléfono" required/>
+			</div>		
+			
+			<div class="form-group">
+	   			<label>Dirección:</label>
+	   			<input class="form-control" ng-model="orderCtrl.customer.address.address" type="text"  placeholder="Introduce la dirección" required/>
+			</div>		
+	  	 	
+	  	 	<div class="form-group">
+	   			<label>Ciudad:</label>
+	   			<input class="form-control" ng-model="orderCtrl.customer.address.city" type="text"  placeholder="Introduce la ciudad" required/>
+			</div>
+			
+			<div class="form-group">
+	   			<label>Provincia:</label>
+	   			<input class="form-control" ng-model="orderCtrl.customer.address.province" type="text"  placeholder="Introduce la provincia" required/>
+			</div>
+			
+			<div class="form-group">
+	   			<label>Código postal:</label>
+	   			<input class="form-control" ng-model="orderCtrl.customer.address.postalCode" type="text"  placeholder="Introduce el codigo postal" required/>
+			</div>
+			
+			<div class="form-group">
+	   			<label>País:</label>
+	   			<input class="form-control" ng-model="orderCtrl.customer.address.country" type="text"  placeholder="Introduce el país" required/>
+			</div>	  	
+	  	</div>
+	  	</fieldset>
+	  	
+	  	<fieldset>
+	  	<div class="well well-lg">	  	
+	  	 	<legend> <h3> Datos de los asegurados: </h3></legend>
+	  	 	
+	  	 	<div class="form-group">
+		   		<label>Número de asegurados:</label>
+		   		<select class="form-control" ng-model="orderCtrl.personNum" type="number" placeholder="Selecciona el número de asegurados" required>
+	   				<option>1</option> <option>2</option> <option>3</option>
+  					<option>4</option> <option>5</option> <option>6</option>
+  					<option>7</option> <option>8</option> <option>9</option>
+  				</select>
+			</div>
+			
+	   <div ng-repeat="i in orderCtrl.getPaxsNumber()">  			
+				<div class="form-group">
+		   			<label>Pasajero {{i + 1}}</label>
+		   			<input class="form-control" ng-model="orderCtrl.persons[i]" type="text"  placeholder="Introduce el nombre y los apellidos" required/>
+				</div>				
+			</div>		
+	  	</div>			
+		</fieldset>
+		
+		<fieldset>
+		<div class="well well-lg">
+	  	 	<legend> <h3> Forma de Pago: </h3> </legend>
+	  	 	
+	  	 	<div class="form-group">
+	  	 	<label>Tarjeta de crédito:</label>
+		   	<select class="form-control" ng-model="orderCtrl.payment.ccType" type="text" placeholder="Selecciona el tipo de tarjeta" required>
+   				<option>Visa</option> <option>Master Card</option> <option>Visa Electron</option>
+				<option>Diners Club</option> <option>American Express</option>
+  			</select>
+  			</div>
+  			
+  			<div class="form-group">
+	   			<label>Número:</label>
+	   			<input class="form-control" ng-model="orderCtrl.payment.ccNumber" type="number"  placeholder="Introduce el número de tarjeta" required/>
+			</div>
+			
+			<div class="form-group">
+	   			<label>Caducidad:</label>
+	   			<input class="form-control" ng-model="orderCtrl.payment.ccExp" type="date"  value="{{ date | date: 'MM-yy' }}" placeholder="MM/YY" required/>
+			</div>
+			
+			<div class="form-group">
+	   			<label>Código CVS:</label>
+	   			<input class="form-control" ng-model="orderCtrl.payment.ccCvs" type="number"  placeholder="Introduce el código CVS" required/>
+			</div>			
+	  	 	
+	  	 	<div class="form-group">
+	   			<label>Nombre y apellidos del titular:</label>
+	   			<input class="form-control" ng-model="orderCtrl.payment.ccName" type="text"  placeholder="Introduce el nombre y los apellidos del titular" required/>
+			</div>
+			
+			<div class="row top-buffer">	  	
+				<div class="col-md-9">	
+					<p class="text-info"> <strong> Precio total: {{(orderCtrl.insurance.grossPrice) * (orderCtrl.personNum) | number:2}} € </strong></p>					
+				</div>				
+				<div class="col-md-3">						
+					<input type="submit" value="Comprar" class="btn btn-info"/>				
+				</div>
+			</div>
+						
+	  	</div>
+	  	</fieldset> 	  	 
+  	 </form>  
+  	 </div>
+  	 
+  	 <div class="col-md-2"> </div>
+  	 </div>
+  	 
+  	 <div class="row top-buffer">
+  		<div class="col-md-2"> </div>
+  		<div class="col-md-8">	
+  	 
+	  	 <div class="alert alert-dismissible alert-danger" ng-show="orderCtrl.isNotBuy">
+		  		<h4> Error: </h4>  			
+		  			<strong>No se ha podido realizar la compra debido a un error del proovedor</strong>	  			
+					<br><strong>Envienos una consulta o seleccione otra modalidad de seguro</strong>
+					<br><strong>Disculpe las molestias</strong>						
+		  			<br>	  		
+		  </div> 	
+		
+		</div>
+	<div class="col-md-2"> </div>
+	</div>
+	
+		
+	
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  <script src="bootstrap-3.3.4/js/bootstrap.min.js"></script>  
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular-route.js"></script>
+  <script type="text/javascript" src="AngularJS/angular.min.js"></script>
+  <script type="text/javascript" src="AngularJS/angular-route.min.js"></script> 
+  <script type="text/javascript" src="AngularJS/app.js"></script>
+  
+      
+  </body>
+</html>	

@@ -91,9 +91,7 @@ public class AdministratorFacadeBean implements AdministratorFacadeRemote {
 	@Override
 	@SuppressWarnings("unchecked")	
 	public List<OrderJPA> findOrderByDate(String from, String to) {
-		
-		System.out.println("Strings from " + from + " To " + to);
-		
+			
 		// Dar formato a las fechas //
 		try {   
 		    

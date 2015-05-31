@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PETICION_CERTIFICADO>
+<AUTENTICACION login="test" pass="test" cliente="b2c"></AUTENTICACION>
+   <MODALIDAD codigo="114">
+       <DESTINO codigo="1" >
+           <DURACION codigo="15" ></DURACION>
+       </DESTINO>
+   </MODALIDAD>
+   <DATOS>
+       <FECHA_INICIO_VIAJE>13/11/15</FECHA_INICIO_VIAJE>
+       <NASEGURADOS>1</NASEGURADOS >
+       <ASEGURADOS>
+           <ASEGURADO>
+               <NOMBRE>test test</NOMBRE>
+           </ASEGURADO>
+           <ASEGURADO>
+               <NOMBRE>test test</NOMBRE>
+           </ASEGURADO>
+       </ASEGURADOS>
+       <LOCALIDAD>test</LOCALIDAD>
+       <PRECIO_NETO>Si</PRECIO_NETO>
+       <REF_AGENCIA>test</REF_AGENCIA>
+       <TRAMITADO>marc test</TRAMITADO>
+       <COUNTRY_SOLD>ES</COUNTRY_SOLD>
+   </DATOS>
+</PETICION_CERTIFICADO>
+						

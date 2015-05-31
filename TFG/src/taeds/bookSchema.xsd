@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+   <xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="PETICION_CERTIFICADO">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="AUTENTICACION">
+          <xs:complexType>
+            <xs:simpleContent>
+              <xs:extension base="xs:string">
+                <xs:attribute type="xs:string" name="login"/>
+                <xs:attribute type="xs:string" name="pass"/>
+                <xs:attribute type="xs:string" name="cliente"/>
+              </xs:extension>
+            </xs:simpleContent>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="MODALIDAD">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="DESTINO">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="DURACION">
+                      <xs:complexType>
+                        <xs:simpleContent>
+                          <xs:extension base="xs:string">
+                            <xs:attribute type="xs:byte" name="codigo"/>
+                          </xs:extension>
+                        </xs:simpleContent>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute type="xs:byte" name="codigo"/>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute type="xs:short" name="codigo"/>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="DATOS">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element type="xs:string" name="FECHA_INICIO_VIAJE"/>
+              <xs:element type="xs:byte" name="NASEGURADOS"/>
+              <xs:element name="ASEGURADOS">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="ASEGURADO" maxOccurs="unbounded" minOccurs="0">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element type="xs:string" name="NOMBRE"/>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element type="xs:string" name="LOCALIDAD"/>
+              <xs:element type="xs:string" name="PRECIO_NETO"/>
+              <xs:element type="xs:string" name="REF_AGENCIA"/>
+              <xs:element type="xs:string" name="TRAMITADO"/>
+              <xs:element type="xs:string" name="COUNTRY_SOLD"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

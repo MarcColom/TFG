@@ -348,8 +348,7 @@
 			vm.isLogin = false;
 			vm.isError = false;
 			vm.isNotFound = false;
-			vm.orders = {};			
-			//vm.from = $filter('date')(vm.from, "dd/MM/yyyy");
+			vm.orders = {};		
 			
 			vm.login = function(){    		        		
 				vm.isLogin = false;
@@ -438,18 +437,4 @@
 			
 	 	})	
 	;
-	        
-	        
-	
  
-		 	        
-	        
-       
-  
-    
-  
- 
-  
- 
-
-  

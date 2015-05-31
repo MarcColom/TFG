@@ -39,6 +39,12 @@ public class TaedsLoginFacadeBean {
 	private static final String CLIENTE_TEST = "b2c";
 	private static final String URL_TEST = "http://taeds.juniper.es/aonseguros/xml/XMLGetResponse2.aspx";	
 	
+	// Constantes para LOGIN Entorno de Produccion // 
+	public static final String LOGIN_PROD = "";
+	public static final String PASS_PROD = "";
+	public static final String CLIENTE_PROD = "";
+	public static final String URL_PROD = "http://www.taeds.com/aonseguros/xml/XMLGetResponse2.aspx";
+	
 	// Constantes para LOGIN Entorno de Produccion //	
 	
 	public List<InsuranceJPA> TaedsLogin (String origin, String destination, Date initDate,Date endDate) {

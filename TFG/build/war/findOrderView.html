@@ -1,0 +1,126 @@
+<!doctype html>
+
+<html lang="es" ng-app="app">
+  
+  <head>
+   <meta charset="utf-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1">   
+   <title>SegurosyViajes</title>   
+   <link href="bootstrap-3.3.4/css/bootstrap.min.css" rel="stylesheet">
+   <link href="css/index.css" rel="stylesheet">
+  </head>
+  
+  <body>  
+  
+  <div class="row top-buffer">  	
+  	<div class="col-md-6">
+  		<br>
+  		<br>
+  		<h1> Mis compras </h1>
+  	</div>	 
+  	<div class="col-md-6">
+  		<img src="./images/logo_blau_mini.png" class="img-responsive" alt="Responsive image">
+  	</div>
+  	<legend></legend>
+  </div>	
+	
+	<div class="row top-buffer">	
+	<div class="col-md-6">	
+	
+	<form class="form-horizontal" name="codeFindForm" ng-submit="codeFindForm.$valid && findOrderCtrl.codeFindOrder()" novalidate>	
+	<fieldset> 
+	<div class="well well-lg">  	 	  	 	
+  	<legend><h3> Busqueda por código de compra: </h3></legend> 
+ 	 	
+ 	 	<div class="form-group">
+  			<label>Email:</label>
+  			<input class="form-control" ng-model="findOrderCtrl.email" type="email"  placeholder="Introduce el email" required/>
+		</div>	  	 	
+		<div class="form-group">
+  			<label>Código de compra:</label>
+  			<input class="form-control" ng-model="findOrderCtrl.code" type="number"  placeholder="Introduce el código" required/>
+		</div>
+		<input type="submit" value="Buscar" class="btn btn-info"/>	
+	</div>
+	</fieldset>
+	</form>
+	</div>
+	
+	<div class="col-md-6">
+	<form class="form-horizontal" name="nameFindForm" ng-submit="nameFindForm.$valid && findOrderCtrl.nameFindOrder()" novalidate>
+	<fieldset> 
+	<div class="well well-lg">  	 	  	 	
+  	<legend><h3> Busqueda por nombre: </h3></legend> 
+ 	 	
+ 	 	<div class="form-group">
+  			<label>Email:</label>
+  			<input class="form-control" ng-model="findOrderCtrl.email" type="email"  placeholder="Introduce el email" required/>
+		</div>	  	 	
+		<div class="form-group">
+  			<label>Nombre:</label>
+  			<input class="form-control" ng-model="findOrderCtrl.name" type="text"  placeholder="Introduce el nombre" required/>
+		</div>		
+		<div class="form-group">
+  			<label>Apellidos:</label>
+  			<input class="form-control" ng-model="findOrderCtrl.surnames" type="text"  placeholder="Introduce los apellidos" required/>
+		</div>
+		<input type="submit" value="Buscar" class="btn btn-info"/>	
+	</div>
+	</fieldset>
+	</form>	
+	</div>
+		
+  </div>
+   
+    
+    <div class="row top-buffer">
+  		<div class="col-md-2"> </div>
+  		<div class="col-md-8">	
+  		
+  		<div class="alert alert-dismissible alert-info" ng-show="findOrderCtrl.isFound">
+	  		<h4> Compra: </h4>	  	
+	  		<div class="row top-buffer">
+			<div class="col-md-8">			
+	  			<strong>Código: </strong> {{findOrderCtrl.order.code}}				
+	  		<!--  <strong>Localizador: </strong> {{findOrderCtrl.order.localizador}} -->
+	  			<br><strong>Comprador: </strong> {{findOrderCtrl.order.customer.name.name}} {{findOrderCtrl.order.customer.name.surnames}}	  		 
+				<br><strong>Núm. de asegurados: </strong> {{findOrderCtrl.order.personNum}}				
+				<br><strong>Asegurados: </strong> 
+					<div ng-repeat="pax in findOrderCtrl.order.persons">
+			 			{{pax.name}} {{pax.surnames}}		
+					</div>				
+				<strong>Fecha de inicio: </strong> {{findOrderCtrl.order.initDate | date:'dd/MM/yyyy'}}	<strong class="text-info">Fecha de finalización: </strong> {{findOrderCtrl.order.endDate | date:'dd/MM/yyyy'}}				
+				<br><strong>Destino: </strong> {{findOrderCtrl.order.destination}}						
+				<br><strong class="text-info"> Precio total: {{findOrderCtrl.order.grossPrice}} € </strong>		
+	  			<br> 
+	  		</div>
+	  		<div class="col-md-4">
+	  			<a href="{{findOrderCtrl.order.certificadoURL}}" target="_blank" class="btn btn-primary">Certificado</a>
+	  		</div>	  	  	  	     
+	  		</div>
+	  	</div> 			  	
+	  	
+	  	<div class="alert alert-dismissible alert-danger" ng-show="findOrderCtrl.isNotFound">
+	  		<h4> Error: </h4>	  				
+	  			<strong>No se ha encontrado ningúna compra con estos datos</strong>	  			
+				<br><strong>Revisa los datos introducidos</strong>						
+	  			<br> 	  		
+	  	</div> 		
+	  		 	
+		</div>
+  		<div class="col-md-2"> </div>
+  	</div>
+  
+  
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  <script src="bootstrap-3.3.4/js/bootstrap.min.js"></script>  
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular-route.js"></script>
+  <script type="text/javascript" src="AngularJS/angular.min.js"></script>
+  <script type="text/javascript" src="AngularJS/angular-route.min.js"></script> 
+  <script type="text/javascript" src="AngularJS/app.js"></script>	 
+  
+</body>
+</html>	
